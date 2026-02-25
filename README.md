@@ -202,6 +202,127 @@ legend("topright",
 
 
 
+```r
+# ============================================================
+# Check Rtools and build tools for R 4.5
+# ============================================================
+# Verify that R can find system compilers
+Sys.which("make")
+Sys.which("gcc")
+
+# Confirm that R can compile packages from source
+install.packages("pkgbuild")
+pkgbuild::check_build_tools(debug = TRUE)
+
+# ============================================================
+# Install necessary packages
+# ============================================================
+install.packages("remotes")
+
+# Install packages from GitHub
+remotes::install_github('cran/dissUtils')
+remotes::install_github('jbferet/biodivMapR')
+
+# Install other dependencies
+install.packages("lwgeom")
+
+# ============================================================
+# 1️⃣ Load libraries
+# ============================================================
+# Set path to terra projection data
+terra_proj_path <- "C:/Users/lunas/AppData/Local/R/win-library/4.5/terra/proj"
+Sys.setenv(PATH = paste(terra_proj_path, Sys.getenv("PATH"), sep=";"))
+
+library(terra)       # Load terra after configuring PATH
+library(biodivMapR)  # Load biodivMapR
+
+# ============================================================
+# 2️⃣ Define file paths
+# ============================================================
+ndvi_stack_path <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/biodivMapR/MODIS_2025_NDVI_STACK_MENSUAL.tif"
+# Optional vegetation mask
+# mask_path <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/Datos/NDVI/vegetation_mask.tif"
+
+output_dir <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/biodivMapR/biodivMapR"
+dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+
+# ============================================================
+# 3️⃣ Read NDVI stack and split into single-band rasters
+# ============================================================
+ndvi_stack <- rast(ndvi_stack_path)
+ndvi_list <- lapply(1:nlyr(ndvi_stack), function(i){
+  band_path <- file.path(output_dir, paste0("NDVI_band_", i, ".tif"))
+  writeRaster(ndvi_stack[[i]], band_path, overwrite = TRUE)
+  return(band_path)
+})
+
+# ============================================================
+# 4️⃣ Create "all valid" mask
+# ============================================================
+mask_all <- ndvi_stack[[1]]  # use first band as template
+mask_all[] <- 1              # set all pixels as valid
+mask_path_all <- file.path(output_dir, "mask_all.tif")
+writeRaster(mask_all, mask_path_all, overwrite = TRUE)
+
+# ============================================================
+# 5️⃣ Define intermediate files
+# ============================================================
+Kmeans_info_save <- file.path(output_dir,'Kmeans_info.RData')
+Beta_info_save   <- file.path(output_dir,'Beta_info.RData')
+
+# ============================================================
+# 6️⃣ Run biodivMapR_full
+# ============================================================
+set.seed(123)
+
+window_size <- 10  # window size for diversity calculation
+
+opts <- list(
+  alpha_metrics    = c("richness","shannon","simpson"), # alpha diversity metrics
+  Hill_order       = 1,
+  fd_metrics       = NULL,                               # functional diversity
+  nb_clusters      = 5,                                  # number of clusters
+  nb_iter          = 3,                                  # number of iterations
+  pcelim           = 0.02,                               # percentile elimination
+  maxRows          = 1e6,
+  min_sun          = 0.0,
+  progressbar      = TRUE
+)
+
+ab_info_NDVI <- biodivMapR_full(
+  input_raster_path = ndvi_list,
+  input_mask_path   = mask_path_all,
+  output_dir        = output_dir,
+  window_size       = window_size,
+  Kmeans_info_save  = Kmeans_info_save,
+  Beta_info_save    = Beta_info_save,
+  options           = opts
+)
+
+# ============================================================
+# 7️⃣ Plot centroids from K-means clustering
+# ============================================================
+# Load Kmeans_info file
+load(Kmeans_info_save)
+centroids <- Kmeans_info$Centroids[[1]]   # first iteration
+
+library(vegan)
+
+# Perform NMDS on centroids
+nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
+
+# Plot NMDS
+plot(nmds$points,
+     col = 1:nrow(centroids),
+     pch = 19,
+     main = "NMDS - Spectral Species")
+
+# Add labels to points
+text(nmds$points,
+     labels = 1:nrow(centroids),
+     pos = 3,
+     cex = 0.7)
+
 
 
 
