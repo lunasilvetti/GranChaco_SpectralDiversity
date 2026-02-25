@@ -89,44 +89,85 @@ hist(ndvi_dist, breaks = 50)
 # Save distance matrix
 ndvi_df <- as.data.frame(ndvi_dist_matrix)
 ndvi_df <- cbind(ID = rownames(ndvi_df), ndvi_df)
-write.csv2(ndvi_df, "date/NDVIx3_distance.csv",
-           row.names = FALSE)
+write.csv2(ndvi_df, "date/NDVIx3_distance.csv", row.names = FALSE)
 ```
 
 
 ### 3. Comparing Spectral and Species Distances
 **Code:**
 ```r
-### 1) Load data
-dist_species <- read.csv("date/distance_jaccard.csv", row.names = 1)
-dist_ndvi <- read.csv2("date/NDVIx3_distance.csv", row.names = 1)
+library(vegan)
+
+# Load distance matrices
+dist_species <- read.csv("data/distancia_jaccard_MODIS.csv", row.names = 1)
+dist_ndvi <- read.csv2("data/NDVIx3_distancia_MODIS.csv", row.names = 1)
 
 # Convert to matrices
 D_biodiv    <- as.matrix(dist_species)
-D_spectral  <- as.matrix(dist_ndvi)
+D_espectral <- as.matrix(dist_ndvi)
 
-### 2) Extract upper triangle only (avoid duplicates)
-dist_spec_vec <- as.vector(D_spectral[upper.tri(D_spectral)])
+# Quick exploratory plot (like in the first script)
+# Convert the entire matrix to numeric vectors
+y_species  <- as.numeric(D_biodiv)
+x_spectral <- as.numeric(D_espectral)
+
+plot(x_spectral, y_species,
+     xlab = "Spectral distance (NDVI)",
+     ylab = "Composition distance (Jaccard)",
+     pch = 16, col = rgb(0,0,0,0.3))
+
+abline(lm(y_species ~ x_spectral), col="red", lwd=2)
+```
+![Scatter_plot_MODIS](Images/Scatter_plot_MODIS.png)
+
+
+```r
+# Compare matrices using Mantel test
+mantel_result <- mantel(D_biodiv, D_espectral, method = "pearson", permutations = 999)
+print(mantel_result)
+```
+
+**Mantel Test Result (Pearson correlation)**
+
+```text
+Mantel statistic based on Pearson's product-moment correlation
+
+Call:
+mantel(xdis = D_biodiv, ydis = D_espectral, method = "pearson", permutations = 999)
+
+Mantel statistic r: 0.4883
+      Significance: 0.001
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99%
+0.0149 0.0192 0.0241 0.0275
+
+Permutation: free
+Number of permutations: 999
+```
+```r
+
+# Regressions
+library(quantreg)
+
+# Extract upper triangle for regression (avoid duplicates)
+dist_spec_vec <- as.vector(D_espectral[upper.tri(D_espectral)])
 dist_bio_vec  <- as.vector(D_biodiv[upper.tri(D_biodiv)])
 
-### 3) Create clean dataframe 
-df <- data.frame(
-  dist_spec = dist_spec_vec,
-  dist_bio  = dist_bio_vec
-)
-
+# Create clean data frame
+df <- data.frame(dist_spec = dist_spec_vec,
+                 dist_bio  = dist_bio_vec)
 df <- na.omit(df)
 
-### 4) Convert distance to similarity (VERY IMPORTANT)
+# Convert distance to similarity
 df$sim_bio <- 1 - df$dist_bio
 
-### 5) OLS MODEL (MEAN TREND)
+
+# Ordinary Least Squares (OLS)
 lm_model <- lm(sim_bio ~ dist_spec, data = df)
 summary(lm_model)
 
-### 6) Quartile regression
-library(quantreg)
-
+# Quantile regressions
 rq_50 <- rq(sim_bio ~ dist_spec, tau = 0.5, data = df)
 rq_75 <- rq(sim_bio ~ dist_spec, tau = 0.75, data = df)
 rq_90 <- rq(sim_bio ~ dist_spec, tau = 0.9, data = df)
@@ -137,10 +178,11 @@ summary(rq_75)
 summary(rq_90)
 summary(rq_99)
 
-### 7) Plot all regression lines
+
+# Final plot with all regression lines
 plot(df$dist_spec, df$sim_bio,
      pch = 16, cex = 0.2,
-     xlab = "Spectral distance",
+     xlab = "Spectral distance (NDVI)",
      ylab = "Jaccard similarity")
 
 abline(lm_model, col = "blue", lwd = 2)
@@ -156,3 +198,10 @@ legend("topright",
 ```
 
 ![Quartile_regression](Images/Quartile_regression.png)
+
+
+
+
+
+
+
