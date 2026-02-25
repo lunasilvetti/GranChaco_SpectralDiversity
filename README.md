@@ -155,4 +155,4 @@ legend("topright",
        lwd = 2)
 ```
 
-![Quartile regression](images/Quartile_regression.png)
+![Quartile_regression](Images/Quartile_regression.png)
