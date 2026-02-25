@@ -153,3 +153,6 @@ legend("topright",
        legend = c("OLS", "τ=0.5", "τ=0.75", "τ=0.9","τ=0.99"),
        col = c("blue", "green", "orange", "red","pink"),
        lwd = 2)
+```
+
+![Quartile regression](images/Quartile_regression.png)
