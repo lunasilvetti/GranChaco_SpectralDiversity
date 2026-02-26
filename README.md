@@ -1,6 +1,3 @@
-# GranChaco_SpectralDiversity
-Workflow for estimating spectral diversity patterns in the Gran Chaco from satellite imagery.
-
 # Spectral Distance and Species Similarity in the Gran Chaco
 
 ## Project Description
@@ -10,6 +7,7 @@ Species similarity was compared with spectral distance derived from MODIS and La
 
 This workflow links remote sensing–derived spectral variability with community dissimilarity and regional diversity patterns, providing a reproducible framework for ecological analysis in dry forests.
 
+---
 ## Methods
 **Code:**
 
@@ -34,7 +32,7 @@ head(dist_jaccard_matrix)
 # Save resulting matrix
 write.csv(dist_jaccard_matrix, "data/distance_jaccard.csv", row.names = TRUE)
 ```
-
+---
 ### 2. Extraction of NDVI values and calculation of spectral distance
 **Code:**
 ```r
@@ -68,11 +66,6 @@ ndvi_points <- cbind(
   sd_3x3   = ndvi_sd_vals[,-1]
 )
 
-# Inspect results
-head(ndvi_points)
-
-# Save extracted NDVI values (optional)
-write.csv(ndvi_points, "date/NDVI_LANDSAT_puntos.csv", row.names = FALSE)
 
 # Build spectral distance matrix
 ndvi_matrix <- ndvi_points[, "ndvi", drop = FALSE] # Select ndvi or (mean, sd) column for distance calculation
@@ -82,17 +75,13 @@ row.names(ndvi_matrix) <- ndvi_points[, "ID"]
 ndvi_dist <- dist(ndvi_matrix, method = "euclidean")
 ndvi_dist_matrix <- as.matrix(ndvi_dist)
 
-# Inspect first rows and columns
-head(ndvi_dist_matrix[, 1:6])
-hist(ndvi_dist, breaks = 50)
-
 # Save distance matrix
 ndvi_df <- as.data.frame(ndvi_dist_matrix)
 ndvi_df <- cbind(ID = rownames(ndvi_df), ndvi_df)
 write.csv2(ndvi_df, "date/NDVIx3_distance.csv", row.names = FALSE)
 ```
 
-
+---
 ### 3. Comparing Spectral and Species Distances
 **Code:**
 ```r
@@ -106,11 +95,11 @@ dist_ndvi <- read.csv2("data/NDVIx3_distancia_MODIS.csv", row.names = 1)
 D_biodiv    <- as.matrix(dist_species)
 D_espectral <- as.matrix(dist_ndvi)
 
-# Quick exploratory plot (like in the first script)
 # Convert the entire matrix to numeric vectors
 y_species  <- as.numeric(D_biodiv)
 x_spectral <- as.numeric(D_espectral)
 
+# Quick exploratory plot
 plot(x_spectral, y_species,
      xlab = "Spectral distance (NDVI)",
      ylab = "Composition distance (Jaccard)",
@@ -120,34 +109,24 @@ abline(lm(y_species ~ x_spectral), col="red", lwd=2)
 ```
 ![Scatter_plot_MODIS](Images/Scatter_plot_MODIS.png)
 
-
+**Compare matrices using Mantel test**
 ```r
-# Compare matrices using Mantel test
 mantel_result <- mantel(D_biodiv, D_espectral, method = "pearson", permutations = 999)
 print(mantel_result)
 ```
 
-**Mantel Test Result (Pearson correlation)**
+| Metric | Value |
+|------|------|
+| Correlation coefficient (r) | **0.4883** |
+| Significance (p-value) | **0.001** |
+| Permutation method | Free |
+| Number of permutations | 999 |
 
-```text
-Mantel statistic based on Pearson's product-moment correlation
 
-Call:
-mantel(xdis = D_biodiv, ydis = D_espectral, method = "pearson", permutations = 999)
 
-Mantel statistic r: 0.4883
-      Significance: 0.001
 
-Upper quantiles of permutations (null model):
-   90%    95%  97.5%    99%
-0.0149 0.0192 0.0241 0.0275
-
-Permutation: free
-Number of permutations: 999
-```
+**Regressions**
 ```r
-
-# Regressions
 library(quantreg)
 
 # Extract upper triangle for regression (avoid duplicates)
@@ -200,55 +179,23 @@ legend("topright",
 ![Quartile_regression](Images/Quartile_regression.png)
 
 
-
-
+---
+### 4. biodivMapR
+**Code:**
 ```r
-# ============================================================
-# Check Rtools and build tools for R 4.5
-# ============================================================
-# Verify that R can find system compilers
-Sys.which("make")
-Sys.which("gcc")
+# Load libraries
+library(terra)       
+library(biodivMapR)  
 
-# Confirm that R can compile packages from source
-install.packages("pkgbuild")
-pkgbuild::check_build_tools(debug = TRUE)
-
-# ============================================================
-# Install necessary packages
-# ============================================================
-install.packages("remotes")
-
-# Install packages from GitHub
-remotes::install_github('cran/dissUtils')
-remotes::install_github('jbferet/biodivMapR')
-
-# Install other dependencies
-install.packages("lwgeom")
-
-# ============================================================
-# 1️⃣ Load libraries
-# ============================================================
-# Set path to terra projection data
-terra_proj_path <- "C:/Users/lunas/AppData/Local/R/win-library/4.5/terra/proj"
-Sys.setenv(PATH = paste(terra_proj_path, Sys.getenv("PATH"), sep=";"))
-
-library(terra)       # Load terra after configuring PATH
-library(biodivMapR)  # Load biodivMapR
-
-# ============================================================
-# 2️⃣ Define file paths
-# ============================================================
-ndvi_stack_path <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/biodivMapR/MODIS_2025_NDVI_STACK_MENSUAL.tif"
+# Define file paths
+ndvi_stack_path <- "date/MODIS_2025_NDVI_STACK_MENSUAL.tif"
 # Optional vegetation mask
 # mask_path <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/Datos/NDVI/vegetation_mask.tif"
-
-output_dir <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/biodivMapR/biodivMapR"
+output_dir <- "date/biodivMapR"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-# ============================================================
-# 3️⃣ Read NDVI stack and split into single-band rasters
-# ============================================================
+
+# Read NDVI stack and split into single-band rasters
 ndvi_stack <- rast(ndvi_stack_path)
 ndvi_list <- lapply(1:nlyr(ndvi_stack), function(i){
   band_path <- file.path(output_dir, paste0("NDVI_band_", i, ".tif"))
@@ -264,19 +211,12 @@ mask_all[] <- 1              # set all pixels as valid
 mask_path_all <- file.path(output_dir, "mask_all.tif")
 writeRaster(mask_all, mask_path_all, overwrite = TRUE)
 
-# ============================================================
-# 5️⃣ Define intermediate files
-# ============================================================
+# Define intermediate files
 Kmeans_info_save <- file.path(output_dir,'Kmeans_info.RData')
 Beta_info_save   <- file.path(output_dir,'Beta_info.RData')
 
-# ============================================================
-# 6️⃣ Run biodivMapR_full
-# ============================================================
-set.seed(123)
-
+# Run biodivMapR_full
 window_size <- 10  # window size for diversity calculation
-
 opts <- list(
   alpha_metrics    = c("richness","shannon","simpson"), # alpha diversity metrics
   Hill_order       = 1,
@@ -298,16 +238,18 @@ ab_info_NDVI <- biodivMapR_full(
   Beta_info_save    = Beta_info_save,
   options           = opts
 )
+```
 
-# ============================================================
-# 7️⃣ Plot centroids from K-means clustering
-# ============================================================
+
+
+**Plot centroids from K-means clustering**
+
+```r
 # Load Kmeans_info file
 load(Kmeans_info_save)
 centroids <- Kmeans_info$Centroids[[1]]   # first iteration
 
 library(vegan)
-
 # Perform NMDS on centroids
 nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
 
