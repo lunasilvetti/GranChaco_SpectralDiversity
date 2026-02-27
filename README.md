@@ -9,9 +9,9 @@ This workflow links remote sensing–derived spectral variability with community
 
 ---
 ## Methods
-**Code:**
 
 ### 1. Calculation of Jaccard distance
+**Code:**
 ```r
 library(vegan)
 
@@ -27,11 +27,22 @@ dist_jaccard <- vegdist(species_only_matrix, method = "jaccard")
 
 # Convert to full matrix to inspect
 dist_jaccard_matrix <- as.matrix(dist_jaccard)
-head(dist_jaccard_matrix)
-
-# Save resulting matrix
-write.csv(dist_jaccard_matrix, "data/distance_jaccard.csv", row.names = TRUE)
+head(dist_jaccard_matrix) # ver primeras filas y columnas
 ```
+### Species Community Matrix (excerpt)
+
+Presence–absence matrix of woody species across sampling plots.  
+Values indicate species presence (1) or absence (0).
+
+| Plot ID | Schinopsis lorentzii | Ceiba chodatii | Celtis ehrenbergiana |
+|--------:|---------------------:|---------------:|---------------------:|
+| 10045078 | 1 | 1 | 0 |
+| 10046077 | 0 | 0 | 1 |
+| 10046079 | 0 | 0 | 0 |
+| 10047076 | 1 | 0 | 1 |
+| 10047079 | 0 | 0 | 0 |
+| 10048074 | 0 | 0 | 0 |
+
 ---
 ### 2. Extraction of NDVI values and calculation of spectral distance
 **Code:**
@@ -75,14 +86,24 @@ row.names(ndvi_matrix) <- ndvi_points[, "ID"]
 ndvi_dist <- dist(ndvi_matrix, method = "euclidean")
 ndvi_dist_matrix <- as.matrix(ndvi_dist)
 
-# Save distance matrix
-ndvi_df <- as.data.frame(ndvi_dist_matrix)
-ndvi_df <- cbind(ID = rownames(ndvi_df), ndvi_df)
-write.csv2(ndvi_df, "date/NDVIx3_distance.csv", row.names = FALSE)
+head(ndvi_dist_matrix[, 1:6])   
 ```
+### Spectral Distance Matrix (excerpt)
+
+Pairwise spectral distance matrix (Euclidean distance based on NDVI variability).  
+Rows and columns correspond to sampling plot IDs; diagonal values are zero.
+
+| Plot ID | 10045078 | 10046077 | 10046079 | 10047076 | 10047079 | 10048074 |
+|--------:|---------:|---------:|---------:|---------:|---------:|---------:|
+| **10045078** | 0.0000 | 0.0054 | 0.0220 | 0.0012 | 0.0146 | 0.0055 |
+| **10046077** | 0.0054 | 0.0000 | 0.0274 | 0.0042 | 0.0200 | 0.0109 |
+| **10046079** | 0.0220 | 0.0274 | 0.0000 | 0.0232 | 0.0074 | 0.0165 |
+| **10047076** | 0.0012 | 0.0042 | 0.0232 | 0.0000 | 0.0158 | 0.0067 |
+| **10047079** | 0.0146 | 0.0200 | 0.0074 | 0.0158 | 0.0000 | 0.0091 |
+| **10048074** | 0.0055 | 0.0109 | 0.0165 | 0.0067 | 0.0091 | 0.0000 |
 
 ---
-### 3. Comparing Spectral and Species Distances
+### 3. Spectral–Community Relationship Analysis
 **Code:**
 ```r
 library(vegan)
@@ -125,7 +146,7 @@ print(mantel_result)
 
 
 
-**Regressions**
+**OLS and Quantile Regression Analysis**
 ```r
 library(quantreg)
 
