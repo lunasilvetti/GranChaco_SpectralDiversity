@@ -165,7 +165,6 @@ df$sim_bio <- 1 - df$dist_bio
 
 # Ordinary Least Squares (OLS)
 lm_model <- lm(sim_bio ~ dist_spec, data = df)
-summary(lm_model)
 
 # Quantile regressions
 rq_50 <- rq(sim_bio ~ dist_spec, tau = 0.5, data = df)
@@ -173,12 +172,38 @@ rq_75 <- rq(sim_bio ~ dist_spec, tau = 0.75, data = df)
 rq_90 <- rq(sim_bio ~ dist_spec, tau = 0.9, data = df)
 rq_99 <- rq(sim_bio ~ dist_spec, tau = 0.99, data = df)
 
+summary(lm_model)
 summary(rq_50)
 summary(rq_75)
 summary(rq_90)
 summary(rq_99)
+```
 
+### Linear Model (OLS)
 
+Relationship between spectral distance and community similarity.
+
+| Term | Estimate | Std. Error | t value | p-value |
+|----|----:|----:|----:|----:|
+| Intercept | 0.2562 | 0.0003 | 888.2 | < 2e-16 |
+| Spectral distance | **-0.7502** | 0.0019 | -393.0 | < 2e-16 |
+
+### Quantile Regression Results
+
+Estimated effects of spectral distance on community similarity across upper quantiles.
+
+| Quantile (τ) | Intercept | Spectral distance | Std. Error | p-value |
+|----:|----:|----:|----:|----:|
+| 0.50 | 0.2225 | -0.6650 | 0.0014 | < 0.001 |
+| 0.75 | 0.3436 | -0.8799 | 0.0022 | < 0.001 |
+| 0.90 | 0.4728 | -1.0822 | 0.0024 | < 0.001 |
+| 0.99 | 0.7768 | **-1.1928** | 0.0026 | < 0.001 |
+
+Spectral distance shows a strong negative effect on community similarity across all quantiles.
+The magnitude of the effect increases toward upper quantiles, indicating a stronger decay in
+maximum similarity as spectral heterogeneity increases.
+
+```r
 # Final plot with all regression lines
 plot(df$dist_spec, df$sim_bio,
      pch = 16, cex = 0.2,
