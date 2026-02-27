@@ -11,7 +11,6 @@ This workflow links remote sensing–derived spectral variability with community
 ## Methods
 
 ### 1. Calculation of Jaccard distance
-**Code:**
 ```r
 library(vegan)
 
@@ -27,25 +26,25 @@ dist_jaccard <- vegdist(species_only_matrix, method = "jaccard")
 
 # Convert to full matrix to inspect
 dist_jaccard_matrix <- as.matrix(dist_jaccard)
-head(dist_jaccard_matrix) # ver primeras filas y columnas
+head(dist_jaccard_matrix [, 1:4]) # ver primeras filas y columnas
 ```
-### Species Community Matrix (excerpt)
+**Community Dissimilarity Matrix (Jaccard, excerpt)**
 
-Presence–absence matrix of woody species across sampling plots.  
-Values indicate species presence (1) or absence (0).
+Pairwise Jaccard dissimilarity matrix based on species presence–absence.
+Values range from 0 (identical composition) to 1 (no shared species).
+The matrix is symmetric with a zero diagonal.
 
-| Plot ID | Schinopsis lorentzii | Ceiba chodatii | Celtis ehrenbergiana |
-|--------:|---------------------:|---------------:|---------------------:|
-| 10045078 | 1 | 1 | 0 |
-| 10046077 | 0 | 0 | 1 |
-| 10046079 | 0 | 0 | 0 |
-| 10047076 | 1 | 0 | 1 |
-| 10047079 | 0 | 0 | 0 |
-| 10048074 | 0 | 0 | 0 |
+| Plot ID | 10049073 | 10050081 | 10052080 | 10053077 |
+|--------:|---------:|---------:|---------:|---------:|
+| **10049073** | 0.0000 | 0.6667 | 0.9167 | 0.8182 |
+| **10050081** | 0.6667 | 0.0000 | 1.0000 | 1.0000 |
+| **10052080** | 0.9167 | 1.0000 | 0.0000 | 0.6000 |
+| **10053077** | 0.8182 | 1.0000 | 0.6000 | 0.0000 |
+| **10053083** | 0.6667 | 0.6667 | 1.0000 | 1.0000 |
+
 
 ---
 ### 2. Extraction of NDVI values and calculation of spectral distance
-**Code:**
 ```r
 library(terra)
 library(readxl)
@@ -86,25 +85,24 @@ row.names(ndvi_matrix) <- ndvi_points[, "ID"]
 ndvi_dist <- dist(ndvi_matrix, method = "euclidean")
 ndvi_dist_matrix <- as.matrix(ndvi_dist)
 
-head(ndvi_dist_matrix[, 1:6])   
+head(ndvi_dist_matrix[, 1:4])   
 ```
-### Spectral Distance Matrix (excerpt)
+**Spectral Distance Matrix (NDVI, excerpt)**
 
-Pairwise spectral distance matrix (Euclidean distance based on NDVI variability).  
-Rows and columns correspond to sampling plot IDs; diagonal values are zero.
+Pairwise spectral distance matrix derived from NDVI spatial variability (3×3 SD)
+between sampling plots. The matrix is symmetric with a zero diagonal.
 
-| Plot ID | 10045078 | 10046077 | 10046079 | 10047076 | 10047079 | 10048074 |
-|--------:|---------:|---------:|---------:|---------:|---------:|---------:|
-| **10045078** | 0.0000 | 0.0054 | 0.0220 | 0.0012 | 0.0146 | 0.0055 |
-| **10046077** | 0.0054 | 0.0000 | 0.0274 | 0.0042 | 0.0200 | 0.0109 |
-| **10046079** | 0.0220 | 0.0274 | 0.0000 | 0.0232 | 0.0074 | 0.0165 |
-| **10047076** | 0.0012 | 0.0042 | 0.0232 | 0.0000 | 0.0158 | 0.0067 |
-| **10047079** | 0.0146 | 0.0200 | 0.0074 | 0.0158 | 0.0000 | 0.0091 |
-| **10048074** | 0.0055 | 0.0109 | 0.0165 | 0.0067 | 0.0091 | 0.0000 |
+| Plot ID | 10049073 | 10050081 | 10052080 | 10053077 |
+|--------:|---------:|---------:|---------:|---------:|
+| **10049073** | 0.0000 | 0.0478 | 0.1850 | 0.1611 |
+| **10050081** | 0.0478 | 0.0000 | 0.2328 | 0.2089 |
+| **10052080** | 0.1850 | 0.2328 | 0.0000 | 0.0239 |
+| **10053077** | 0.1611 | 0.2089 | 0.0239 | 0.0000 |
+| **10053083** | 0.0159 | 0.0319 | 0.2009 | 0.1770 |
+
 
 ---
 ### 3. Spectral–Community Relationship Analysis
-**Code:**
 ```r
 library(vegan)
 
@@ -130,23 +128,26 @@ abline(lm(y_species ~ x_spectral), col="red", lwd=2)
 ```
 ![Scatter_plot_MODIS](Images/Scatter_plot_MODIS.png)
 
-**Compare matrices using Mantel test**
+### Compare matrices using Mantel test
 ```r
 mantel_result <- mantel(D_biodiv, D_espectral, method = "pearson", permutations = 999)
 print(mantel_result)
 ```
 
+**Mantel Test Summary (Pearson)**
+
 | Metric | Value |
 |------|------|
-| Correlation coefficient (r) | **0.4883** |
-| Significance (p-value) | **0.001** |
-| Permutation method | Free |
-| Number of permutations | 999 |
+| Correlation method | Pearson |
+| Mantel statistic (r) | **0.4359** |
+| p-value | **0.001** |
+| Permutations | 999 |
+| Permutation type | Free |
 
 
 
 
-**OLS and Quantile Regression Analysis**
+### OLS and Quantile Regression Analysis
 ```r
 library(quantreg)
 
@@ -179,7 +180,7 @@ summary(rq_90)
 summary(rq_99)
 ```
 
-### Linear Model (OLS)
+**Linear Model (OLS)**
 
 Relationship between spectral distance and community similarity.
 
@@ -188,7 +189,7 @@ Relationship between spectral distance and community similarity.
 | Intercept | 0.2562 | 0.0003 | 888.2 | < 2e-16 |
 | Spectral distance | **-0.7502** | 0.0019 | -393.0 | < 2e-16 |
 
-### Quantile Regression Results
+**Quantile Regression Results**
 
 Estimated effects of spectral distance on community similarity across upper quantiles.
 
@@ -203,8 +204,8 @@ Spectral distance shows a strong negative effect on community similarity across 
 The magnitude of the effect increases toward upper quantiles, indicating a stronger decay in
 maximum similarity as spectral heterogeneity increases.
 
+### Final plot with all regression lines
 ```r
-# Final plot with all regression lines
 plot(df$dist_spec, df$sim_bio,
      pch = 16, cex = 0.2,
      xlab = "Spectral distance (NDVI)",
@@ -288,7 +289,7 @@ ab_info_NDVI <- biodivMapR_full(
 
 
 
-**Plot centroids from K-means clustering**
+### Plot centroids from K-means clustering
 
 ```r
 # Load Kmeans_info file
