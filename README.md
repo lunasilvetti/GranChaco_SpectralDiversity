@@ -1,9 +1,9 @@
 # Spectral Distance and Species Similarity in the Gran Chaco
 
 ## Project Description
-This repository analyzes the relationship between spectral distance and species similarity across plots in the Gran Chaco. We test whether increasing spectral variability is associated with decreasing community similarity using the Jaccard index and quantile regression (95% and 99% upper quantiles).
+This repository analyzes the relationship between spectral distance and species similarity across plots in the Gran Chaco. We test whether increasing spectral variability is associated with decreasing community similarity using the Jaccard index and quantile regression (95% and 99% upper quantiles). Species similarity was compared with spectral distance derived from MODIS. 
 
-Species similarity was compared with spectral distance derived from MODIS and Landsat. The `biodivMapR` package was then used to estimate spectral alpha (α) and beta (β) diversity across the region using cluster-based approaches (10–50 clusters), generating spatial maps of diversity and turnover.
+The `biodivMapR` package was then used to estimate spectral alpha (α) and beta (β) diversity across the region using cluster-based approaches (10–50 clusters), generating spatial maps of diversity and turnover.
 
 This workflow links remote sensing–derived spectral variability with community dissimilarity and regional diversity patterns, providing a reproducible framework for ecological analysis in dry forests.
 
@@ -15,7 +15,7 @@ This workflow links remote sensing–derived spectral variability with community
 library(vegan)
 
 # Load community matrix
-community_matrix <- read.csv("data/Matriz_comunidad.csv")
+community_matrix <- read.csv("data/Community_matrix.csv")
 
 # Set ID column as row names and remove it from data
 rownames(community_matrix) <- community_matrix$ID
@@ -107,8 +107,8 @@ between sampling plots. The matrix is symmetric with a zero diagonal.
 library(vegan)
 
 # Load distance matrices
-dist_species <- read.csv("data/distancia_jaccard_MODIS.csv", row.names = 1)
-dist_ndvi <- read.csv2("data/NDVIx3_distancia_MODIS.csv", row.names = 1)
+dist_species <- read.csv("data/distance_jaccard_MODIS.csv", row.names = 1)
+dist_ndvi <- read.csv2("data/NDVIx3_distance_MODIS.csv", row.names = 1)
 
 # Convert to matrices
 D_biodiv    <- as.matrix(dist_species)
@@ -126,7 +126,7 @@ plot(x_spectral, y_species,
 
 abline(lm(y_species ~ x_spectral), col="red", lwd=2)
 ```
-![Scatter_plot_MODIS](Images/Scatter_plot_MODIS.png)
+<img src="Images/Scatter_plot_MODIS.png" alt="Descripción" width="500"/>
 
 ### Compare matrices using Mantel test
 ```r
@@ -223,21 +223,31 @@ legend("topright",
        lwd = 2)
 ```
 
-![Quartile_regression](Images/Quartile_regression.png)
+<img src="Images/Quartile_regression.png" alt="Descripción" width="500"/>
+
 
 
 ---
-### 4. biodivMapR
-**Code:**
+### 4. Alpha and Beta Spectral Diversity
+
+In this analysis, we used the R package biodivMapR for α- and β-diversity mapping from MODIS images. 
+This package allows the estimation of spectral diversity metrics (richness, Shannon, Simpson) and the assessment of spatial patterns of alpha and beta diversity from raster stacks (e.g., NDVI). It is particularly useful for evaluating landscape heterogeneity and monitoring vegetation or ecosystem changes.
+
+
+Féret, J.-B., de Boissieu, F., 2019. biodivMapR: an R package for α‐ and β‐diversity mapping using remotely‐sensed images. Methods Ecol. Evol. 00:1-7. https://doi.org/10.1111/2041-210X.13310
+
+Féret, J.-B., Asner, G.P., 2014. Mapping tropical forest canopy diversity using high-fidelity imaging spectroscopy. Ecol. Appl. 24, 1289–1296. https://doi.org/10.1890/13-1824.1
+
+
 ```r
 # Load libraries
 library(terra)       
 library(biodivMapR)  
 
 # Define file paths
-ndvi_stack_path <- "date/MODIS_2025_NDVI_STACK_MENSUAL.tif"
+ndvi_stack_path <- "date/MODIS_2025_NDVI_STACK_MONTHLY.tif"
 # Optional vegetation mask
-# mask_path <- "G:/Mi unidad/Post-doc/Objetivo 2 - Italia/Datos/NDVI/vegetation_mask.tif"
+# mask_path <- "date/vegetation_mask.tif"
 output_dir <- "date/biodivMapR"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
@@ -250,9 +260,8 @@ ndvi_list <- lapply(1:nlyr(ndvi_stack), function(i){
   return(band_path)
 })
 
-# ============================================================
-# 4️⃣ Create "all valid" mask
-# ============================================================
+
+# Create "all valid" mask
 mask_all <- ndvi_stack[[1]]  # use first band as template
 mask_all[] <- 1              # set all pixels as valid
 mask_path_all <- file.path(output_dir, "mask_all.tif")
@@ -267,13 +276,15 @@ window_size <- 10  # window size for diversity calculation
 opts <- list(
   alpha_metrics    = c("richness","shannon","simpson"), # alpha diversity metrics
   Hill_order       = 1,
-  fd_metrics       = NULL,                               # functional diversity
-  nb_clusters      = 5,                                  # number of clusters
-  nb_iter          = 3,                                  # number of iterations
-  pcelim           = 0.02,                               # percentile elimination
-  maxRows          = 1e6,
-  min_sun          = 0.0,
-  progressbar      = TRUE
+  nb_samples_alpha = NULL,                 # Number of pixels sampled to compute alpha diversity (across the whole image)
+  nb_samples_beta  = NULL,                 # Number of pixels sampled to compute beta diversity (across the whole image)
+  fd_metrics       = NULL,                 # functional diversity (NULL = not used)
+  nb_clusters      = 20,                   # number of clusters
+  nb_iter          = 3,                    # number of iterations
+  pcelim           = 0.02,                 # percentile elimination
+  maxRows          = 1e6,                  # Maximum number of pixels used to train K-means clustering (memory management)
+  min_sun          = 0.0,                  # Minimum solar illumination threshold (0 = no filtering)
+  progressbar      = TRUE                  # Show progress bar during computation
 )
 
 ab_info_NDVI <- biodivMapR_full(
@@ -286,11 +297,13 @@ ab_info_NDVI <- biodivMapR_full(
   options           = opts
 )
 ```
+**alpha and beta diversity map**
+
+<img src="Images/alfa_beta_diversity.jpeg" alt="Descripción" width="500"/>
 
 
 
 ### Plot centroids from K-means clustering
-
 ```r
 # Load Kmeans_info file
 load(Kmeans_info_save)
@@ -311,7 +324,7 @@ text(nmds$points,
      labels = 1:nrow(centroids),
      pos = 3,
      cex = 0.7)
-
-
+```
+<img src="Images/kmeans_20.jpeg" alt="Descripción" width="500"/>
 
 
