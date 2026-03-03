@@ -1,11 +1,17 @@
 # Spectral Distance and Species Similarity in the Gran Chaco
 
 ## Project Description
-This repository analyzes the relationship between spectral distance and species similarity across plots in the Gran Chaco. We test whether increasing spectral variability is associated with decreasing community similarity using the Jaccard index and quantile regression (95% and 99% upper quantiles). Species similarity was compared with spectral distance derived from MODIS. 
+This repository analyzes the relationship between spectral distance and species similarity across plots in the Gran Chaco. The Gran Chaco of South America is one of the largest remaining continuous tropical dry forests in the world.
+
+We test whether increasing spectral variability is associated with decreasing community similarity using the Jaccard index and quantile regression (95% and 99% upper quantiles). Species similarity was compared with spectral distance derived from MODIS. 
 
 The `biodivMapR` package was then used to estimate spectral alpha (α) and beta (β) diversity across the region using cluster-based approaches (10–50 clusters), generating spatial maps of diversity and turnover.
 
 This workflow links remote sensing–derived spectral variability with community dissimilarity and regional diversity patterns, providing a reproducible framework for ecological analysis in dry forests.
+
+<p align="center">
+<img src="Images/GranChaco_Americano.jpeg" alt="Descripción" width="500"/>
+</p>
 
 ---
 ## Methods
