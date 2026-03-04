@@ -17,11 +17,12 @@ This workflow links remote sensing–derived spectral variability with community
 ## Methods
 
 ### 1. Calculation of Jaccard distance
+Calculates the Jaccard distance between sites from a community matrix (species presence/absence) using the vegan package in R.
 ```r
 library(vegan)
 
 # Load community matrix
-community_matrix <- read.csv("data/Community_matrix.csv")
+community_matrix <- read.csv("~/Community_matrix.csv")
 
 # Set ID column as row names and remove it from data
 rownames(community_matrix) <- community_matrix$ID
@@ -46,21 +47,21 @@ The matrix is symmetric with a zero diagonal.
 | **10050081** | 0.6667 | 0.0000 | 1.0000 | 1.0000 |
 | **10052080** | 0.9167 | 1.0000 | 0.0000 | 0.6000 |
 | **10053077** | 0.8182 | 1.0000 | 0.6000 | 0.0000 |
-| **10053083** | 0.6667 | 0.6667 | 1.0000 | 1.0000 |
 
 
 ---
 ### 2. Extraction of NDVI values and calculation of spectral distance
+Extracts NDVI values from a raster at field sampling points using the terra package in R. The script computes local metrics (3×3 focal mean and standard deviation), associates these values with each point ID, and builds a Euclidean spectral distance matrix between sites based on NDVI values, enabling comparison of their environmental similarity.
 ```r
 library(terra)
 library(readxl)
 library(dplyr)
 
 # Load NDVI raster
-ndvi_raster <- rast("date/MODIS_2025_NDVI_ANUAL.tif")
+ndvi_raster <- rast("~/MODIS_2025_NDVI_ANUAL.tif")
 
 # Load field points
-points <- read.csv("date/points.csv")
+points <- read.csv("~/points.csv")
 
 # Convert to SpatVector
 points_vect <- vect(points, geom = c("long", "lat"), crs = crs(ndvi_raster))
@@ -104,17 +105,17 @@ between sampling plots. The matrix is symmetric with a zero diagonal.
 | **10050081** | 0.0478 | 0.0000 | 0.2328 | 0.2089 |
 | **10052080** | 0.1850 | 0.2328 | 0.0000 | 0.0239 |
 | **10053077** | 0.1611 | 0.2089 | 0.0239 | 0.0000 |
-| **10053083** | 0.0159 | 0.0319 | 0.2009 | 0.1770 |
 
 
 ---
 ### 3. Spectral–Community Relationship Analysis
+Analyzes the relationship between spectral distance (NDVI) and species composition dissimilarity (Jaccard) using the vegan package in R. The script compares both distance matrices through an exploratory scatter plot with a linear regression line and evaluates their correlation using a Mantel test.
 ```r
 library(vegan)
 
 # Load distance matrices
-dist_species <- read.csv("data/distance_jaccard_MODIS.csv", row.names = 1)
-dist_ndvi <- read.csv2("data/NDVIx3_distance_MODIS.csv", row.names = 1)
+dist_species <- read.csv("~/distance_jaccard_MODIS.csv", row.names = 1)
+dist_ndvi <- read.csv2("~/NDVIx3_distance_MODIS.csv", row.names = 1)
 
 # Convert to matrices
 D_biodiv    <- as.matrix(dist_species)
@@ -132,7 +133,9 @@ plot(x_spectral, y_species,
 
 abline(lm(y_species ~ x_spectral), col="red", lwd=2)
 ```
+<p align="center">
 <img src="Images/Scatter_plot_MODIS.png" alt="Descripción" width="500"/>
+</p>
 
 ### Compare matrices using Mantel test
 ```r
@@ -154,6 +157,7 @@ print(mantel_result)
 
 
 ### OLS and Quantile Regression Analysis
+Evaluates the relationship between spectral distance and biological similarity using Ordinary Least Squares (OLS) and quantile regression with the quantreg package in R. The script extracts the upper triangle of the distance matrices to avoid duplicate comparisons, converts compositional distance into similarity, and fits one OLS model along with multiple quantile regression models (τ = 0.5, 0.75, 0.9, 0.99). This approach allows assessment of both the average trend and how the relationship behaves across different portions of the similarity distribution.
 ```r
 library(quantreg)
 
@@ -228,9 +232,9 @@ legend("topright",
        col = c("blue", "green", "orange", "red","pink"),
        lwd = 2)
 ```
-
+<p align="center">
 <img src="Images/Quartile_regression.png" alt="Descripción" width="500"/>
-
+</p>
 
 
 ---
@@ -239,22 +243,16 @@ legend("topright",
 In this analysis, we used the R package biodivMapR for α- and β-diversity mapping from MODIS images. 
 This package allows the estimation of spectral diversity metrics (richness, Shannon, Simpson) and the assessment of spatial patterns of alpha and beta diversity from raster stacks (e.g., NDVI). It is particularly useful for evaluating landscape heterogeneity and monitoring vegetation or ecosystem changes.
 
-
-Féret, J.-B., de Boissieu, F., 2019. biodivMapR: an R package for α‐ and β‐diversity mapping using remotely‐sensed images. Methods Ecol. Evol. 00:1-7. https://doi.org/10.1111/2041-210X.13310
-
-Féret, J.-B., Asner, G.P., 2014. Mapping tropical forest canopy diversity using high-fidelity imaging spectroscopy. Ecol. Appl. 24, 1289–1296. https://doi.org/10.1890/13-1824.1
-
-
 ```r
 # Load libraries
 library(terra)       
 library(biodivMapR)  
 
 # Define file paths
-ndvi_stack_path <- "date/MODIS_2025_NDVI_STACK_MONTHLY.tif"
+ndvi_stack_path <- "~/MODIS_2025_NDVI_STACK_MONTHLY.tif"
 # Optional vegetation mask
-# mask_path <- "date/vegetation_mask.tif"
-output_dir <- "date/biodivMapR"
+# mask_path <- "~/vegetation_mask.tif"
+output_dir <- "~/biodivMapR"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 
@@ -303,10 +301,11 @@ ab_info_NDVI <- biodivMapR_full(
   options           = opts
 )
 ```
-**alpha and beta diversity map**
+**Alpha and Beta diversity map**
 
+<p align="center">
 <img src="Images/alfa_beta_diversity.jpeg" alt="Descripción" width="500"/>
-
+</p
 
 
 ### Plot centroids from K-means clustering
@@ -331,6 +330,17 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 ```
-<img src="Images/kmeans_20.jpeg" alt="Descripción" width="500"/>
 
+<p align="center">
+<img src="Images/kmeans_20.jpeg" alt="Descripción" width="500"/>
+</p
+
+
+## Reference
+
+Féret, J.-B., de Boissieu, F., 2019. biodivMapR: an R package for α‐ and β‐diversity mapping using remotely‐sensed images. Methods Ecol. Evol. 00:1-7. https://doi.org/10.1111/2041-210X.13310
+
+Féret, J.-B., Asner, G.P., 2014. Mapping tropical forest canopy diversity using high-fidelity imaging spectroscopy. Ecol. Appl. 24, 1289–1296. https://doi.org/10.1890/13-1824.1
+
+Rocchini D. and Cade B. S., "Quantile Regression Applied to Spectral Distance Decay," in IEEE Geoscience and Remote Sensing Letters, vol. 5, no. 4, pp. 640-643, Oct. 2008, [doi: 10.1109/LGRS.2008.2001767.](https://ieeexplore.ieee.org/document/4656450)
 
