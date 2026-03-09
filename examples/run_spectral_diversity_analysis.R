@@ -93,7 +93,7 @@ spectral_biodiversity_analysis <- function(
   
   
   # Exploratory plot
-  png(file.path(output_dir,"distance_relationship_plot.png"), width=800,height=600)
+  png(file.path(output_dir,"distance_relationship_plot.png"), width=800,height=500)
   
   plot(x_spectral, y_species,
        xlab = "Spectral distance (NDVI)",
@@ -158,7 +158,7 @@ spectral_biodiversity_analysis <- function(
   #--------------------------------------------------
   
   png(file.path(output_dir,"quantile_regression_plot.png"),
-      width=800,height=600)
+      width=800,height=500)
   
   plot(df$dist_spec, df$sim_bio,
        pch = 16, cex = 0.3,
@@ -194,6 +194,7 @@ spectral_biodiversity_analysis(
   output_dir = "./outputs"
   
 )
+
 
 
 
