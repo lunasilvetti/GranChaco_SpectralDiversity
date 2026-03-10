@@ -2,17 +2,17 @@
 ## necessary libreries
 ## Download tools compatible with R 4.5
 # Check that the system finds the required paths
-Sys.which("make")
-Sys.which("gcc")
+#Sys.which("make")
+#Sys.which("gcc")
 
 ## This confirms that R can compile packages from source.
-install.packages("pkgbuild")
-pkgbuild::check_build_tools(debug = TRUE)
+#install.packages("pkgbuild")
+#pkgbuild::check_build_tools(debug = TRUE)
 
 # Installation
-install.packages("remotes")
-remotes::install_github("cran/dissUtils")
-remotes::install_github("jbferet/biodivMapR")
+#install.packages("remotes")
+#remotes::install_github("cran/dissUtils")
+#remotes::install_github("jbferet/biodivMapR")
 ##----------------------------------------------------------
 
 # Load libraries
@@ -100,6 +100,7 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 dev.off()
+
 
 
 
