@@ -187,12 +187,13 @@ spectral_biodiversity_analysis <- function(
 ##Applications
 spectral_biodiversity_analysis(
   
-  community_matrix_path = "./input_data/Matriz_comunidad.csv",
-  points_path ="./input_data/Sampling_points.csv",
-  raster_path = "./input_data/NDVI_anualmedian.tif",
+  community_matrix_path = "~/Matriz_comunidad.csv",
+  points_path ="~/Sampling_points.csv",
+  raster_path = "~/NDVI_anualmedian.tif",
   output_dir = "./outputs"
   
 )
+
 
 
 
