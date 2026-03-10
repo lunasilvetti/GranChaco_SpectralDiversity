@@ -47,6 +47,7 @@ Kmeans_info_save <- file.path(output_dir,'Kmeans_info.RData')
 Beta_info_save   <- file.path(output_dir,'Beta_info.RData')
 
 # Run biodivMapR_full
+set.seed(123)  # Set random seed to ensure reproducible results for K-means and Beta raster
 window_size <- 10  # window size for diversity calculation
 opts <- list(
   alpha_metrics    = c("richness","shannon","simpson"), # alpha diversity metrics
@@ -97,6 +98,7 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 dev.off()
+
 
 
 
