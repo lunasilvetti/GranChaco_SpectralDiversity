@@ -20,7 +20,7 @@ library(biodivMapR)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set actual wd
 
 # Define file paths
-ndvi_stack_path <- "./input_data/MODIS_2025_NDVI_STACK_MENSUAL.tif"
+ndvi_stack_path <- "~/MODIS_2025_NDVI_STACK_MENSUAL.tif"
 # Optional vegetation mask
 # mask_path <- "~/vegetation_mask.tif"
 output_dir <- "./out/biodivMapR"
@@ -97,5 +97,6 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 dev.off()
+
 
 
