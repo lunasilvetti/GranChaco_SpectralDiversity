@@ -107,6 +107,6 @@ remotes::install_github("jbferet/biodivMapR")
 ## ⚠️ Notes
 
 - Both examples are fully reproducible  
-- `outputs/` folder is created automatically if it does not exist  
+- `out/` folder is created automatically if it does not exist  
 - Adjust file paths in the scripts according to your local system before running
 
