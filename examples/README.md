@@ -101,6 +101,12 @@ out/BiodivMapR
  └── 📄 richness_*             # Spectral richness raster outputs (two rasters: mean and standard deviation)
  ```
 
+
+### 📝 Results
+<p align="center">
+<img src="examples/Results/BiodivMapR/alfa_beta_diversity_example.jpeg" alt="Descripción" width="500"/>
+</
+
 ---
 
 ## 📦 Required packages
