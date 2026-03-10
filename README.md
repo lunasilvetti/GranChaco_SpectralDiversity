@@ -134,7 +134,7 @@ plot(x_spectral, y_species,
 abline(lm(y_species ~ x_spectral), col="red", lwd=2)
 ```
 <p align="center">
-<img src="Images/Scatter_plot_MODIS.png" alt="Descripción" width="500"/>
+<img src="Images/distance_relationship_plot.png" alt="Descripción" width="500"/>
 </p>
 
 ### Compare matrices using Mantel test
