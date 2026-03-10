@@ -23,12 +23,18 @@ examples/
 
 ---
 
-## 1️⃣ Spectral–Biodiversity Analysis
+## 1️⃣ Spectral–Biodiversity Analysis ("run_spectral_biodiversity_analysisR.R")
 
 ### ▶️ Run the example
 
 ```r
-source("run_spectral_diversity_analysis.R")
+spectral_biodiversity_analysis(
+  community_matrix_path = "./input_data/Community_matrix.csv",
+  points_path = "./input_data/points.csv",
+  raster_path = "./input_data/Modis_2025_anualmedian.tif",
+  output_dir = "./out"
+)
+
 ```
 
 
@@ -55,7 +61,7 @@ The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together
 
 ---
 
-## 2️⃣ Biodiversity Mapping with `biodivMapR_full()`
+## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("run_biodivMapR.R")
 
 ### 📄 Input data
 
@@ -66,7 +72,15 @@ The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together
 ### ▶️ Run the example
 
 ```r
-source("run_biodivMapR.R")
+ab_info_NDVI <- biodivMapR_full(
+  input_raster_path = ndvi_list,
+  input_mask_path   = mask_path_all,
+  output_dir        = output_dir,
+  window_size       = window_size,
+  Kmeans_info_save  = Kmeans_info_save,
+  Beta_info_save    = Beta_info_save,
+  options           = opts
+)
 ```
 
 This script will:
@@ -104,9 +118,9 @@ out/BiodivMapR
  ```
 
 
-### 📝 Results
+### 📝 Visualization of results
 
-The figure shows the Shannon_mean raster and the Beta raster.
+The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e.g., QGIS), since these maps are not standard graphical outputs of the script.
 
 <p align="center">
   <img src="Results/BiodivMapR/alfa_beta_diversity_example.jpeg" width="500">
