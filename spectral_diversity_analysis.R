@@ -4,7 +4,6 @@ library(terra)
 library(quantreg)
 
 
-setwd("G:/Mi unidad/Post-doc/Objetivo 2 - Italia/Distancia_espectral/Final")
 
 spectral_biodiversity_analysis <- function(
     community_matrix_path ,
@@ -194,6 +193,7 @@ spectral_biodiversity_analysis(
   output_dir = "./outputs"
   
 )
+
 
 
 
