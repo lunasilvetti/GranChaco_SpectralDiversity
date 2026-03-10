@@ -3,7 +3,7 @@ library(vegan)
 library(terra)
 library(quantreg)
 
-
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set actual wd
 
 
 spectral_biodiversity_analysis <- function(
@@ -194,6 +194,7 @@ spectral_biodiversity_analysis(
   output_dir = "./out"
   
 )
+
 
 
 
