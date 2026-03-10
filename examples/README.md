@@ -11,31 +11,19 @@ This folder contains two minimal reproducible examples for R-based spectral-biod
 
 ```
 examples/
- ├── 📄 Community_matrix.csv
- ├── 📄 points.csv
- ├── 📄 Modis_2025_anualmedian.tif
+ ├── 📁 input_data/
+     ├── 📄 Community_matrix.csv                  # Community matrix: sites in rows, species in columns, presence/absence values.   
+     ├── 📄 points.csv                            # Required columns: ID, LONGITUD_I, LATITUD_IN.
+     ├── 📄 Modis_2025_anualmedian.tif            # Annual NDVI raster required to compute spectral distances among sampling sites.
+     ├── 📄 stack_ndvi_2025.tif                   # Monthly NDVI raster stack (12 bands, one per month) representing the annual NDVI time series.
  ├── 📄 run_spectral_diversity_analysis.R         # Script for spectral_biodiversity_analysis
  ├── 📄 run_biodivMapR.R                          # Script for biodivMapR_full
- └── 📁 outputs/
+ └── 📁 out/
 ```
 
 ---
 
 ## 1️⃣ Spectral–Biodiversity Analysis
-
-### 📄 Input data
-
-- **Community matrix:** `Community_matrix.csv`  
-  - Rows = sampling sites  
-  - Columns = species  
-  - Values = presence/absence  
-
-- **Sampling points:** `points.csv`  
-  - Contains coordinates of sampling sites  
-  - Required columns: `ID`, `LONGITUD_I`, `LATITUD_IN`  
-
-- **NDVI raster:** `Modis_2025_anualmedian.tif`  
-  - Raster used to compute spectral distances
 
 ### ▶️ Run the example
 
@@ -43,23 +31,13 @@ examples/
 source("run_spectral_diversity_analysis.R")
 ```
 
-or run directly:
-
-```r
-spectral_biodiversity_analysis(
-  community_matrix_path = "./subir/Matriz_comunidad_ejemplo.csv",
-  points_path = "./subir/points_inside_raster_tabla.csv",
-  raster_path = "./subir/Modis_2025_anualmedian.tif",
-  output_dir = "./subir/outputs"
-)
-```
 
 ### 📝 Expected outputs
 
-All outputs are saved in `outputs/`:
+All outputs are saved in `out/`:
 
 ```
-outputs/
+out/
  ├── 📄 distance_jaccard_matrix.csv
  ├── 📄 spectral_distance_matrix.csv
  ├── 📄 distance_relationship_plot.png
@@ -74,14 +52,14 @@ outputs/
 
 ### 📄 Input data
 
-- **NDVI stack:** `stak_ndvi.tif`  
+- **NDVI stack:** `stack_ndvi_2025.tif`  
   Multi-band NDVI raster stack (12 bands), representing monthly NDVI values for each month of the year 2025.  
 - Optional **vegetation mask** can be provided to limit analysis to certain areas
 
 ### ▶️ Run the example
 
 ```r
-source("run_biodivMapR_example.R")
+source("run_biodivMapR.R")
 ```
 
 This script will:
@@ -106,12 +84,12 @@ This script will:
 All outputs are saved in `outputs/`:
 
 ```
-outputs/
+out/BiodivMapR
  ├── 📄 NDVI_band_*.tif        # Individual raster bands
  ├── 📄 mask_all.tif           # Mask used for analysis
  ├── 📄 Kmeans_info.RData      # Centroids and clustering info
  ├── 📄 Beta_info.RData        # Beta diversity results
- └── 📄 NMDS_plot.png          # NMDS of spectral species centroids (generated in R)
+ └── 📄 nmds_plot.png          # NMDS of spectral species centroids (generated in R)
 ```
 
 ---
