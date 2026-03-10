@@ -15,7 +15,7 @@ examples/
      ├── 📄 Community_matrix.csv                  # Community matrix: sites in rows, species in columns, presence/absence values.   
      ├── 📄 points.csv                            # Required columns: ID, LONGITUD_I, LATITUD_IN.
      ├── 📄 Modis_2025_anualmedian.tif            # Annual NDVI raster required to compute spectral distances among sampling sites.
-     ├── 📄 stack_ndvi_2025.tif                   # Monthly NDVI raster stack (12 bands, one per month) representing the annual NDVI time series.
+     └── 📄 stack_ndvi_2025.tif                   # Monthly NDVI raster stack (12 bands, one per month) representing the annual NDVI time series.
  ├── 📄 run_spectral_diversity_analysis.R         # Script for spectral_biodiversity_analysis
  ├── 📄 run_biodivMapR.R                          # Script for biodivMapR_full
  └── 📁 out/
