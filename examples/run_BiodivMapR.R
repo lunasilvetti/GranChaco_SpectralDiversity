@@ -1,3 +1,5 @@
+##----------------------------------------------------------
+## necessary libreries
 ## Download tools compatible with R 4.5
 # Check that the system finds the required paths
 Sys.which("make")
@@ -11,7 +13,7 @@ pkgbuild::check_build_tools(debug = TRUE)
 install.packages("remotes")
 remotes::install_github("cran/dissUtils")
 remotes::install_github("jbferet/biodivMapR")
-
+##----------------------------------------------------------
 
 # Load libraries
 library(terra)       
@@ -97,6 +99,7 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 dev.off()
+
 
 
 
