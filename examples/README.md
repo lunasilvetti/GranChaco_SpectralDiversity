@@ -89,8 +89,12 @@ out/BiodivMapR
  ├── 📄 mask_all.tif           # Mask used for analysis
  ├── 📄 Kmeans_info.RData      # Centroids and clustering info
  ├── 📄 Beta_info.RData        # Beta diversity results
- └── 📄 nmds_plot.png          # NMDS of spectral species centroids (generated in R)
-```
+ ├── 📄 nmds_plot.png          # NMDS of spectral species centroids (generated in R)
+ ├── 📄 Beta                   # Beta diversity raster outputs
+ ├── 📄 Shannon_*              # Shannon diversity raster outputs (two rasters: mean and standard deviation)
+ ├── 📄 Simpson_*              # Simpson diversity raster outputs (two rasters: mean and standard deviation)
+ └── 📄 richness_*             # Spectral richness raster outputs (two rasters: mean and standard deviation)
+ ```
 
 ---
 
