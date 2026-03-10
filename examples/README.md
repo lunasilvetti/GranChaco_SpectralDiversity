@@ -46,6 +46,11 @@ out/
  └── 📄 quantile_regression_plot.png
 ```
 
+### 📝 Results
+<p align="center">
+<img src="examples/Results/alfa_beta_diversity_example.jpeg" alt="Descripción" width="500"/>
+</
+
 ---
 
 ## 2️⃣ Biodiversity Mapping with `biodivMapR_full()`
