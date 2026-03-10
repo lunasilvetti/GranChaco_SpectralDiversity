@@ -103,9 +103,14 @@ out/BiodivMapR
 
 
 ### 📝 Results
+
+The figure shows the Shannon_mean raster and the Beta raster.
+
 <p align="center">
-<img src="examples/Results/BiodivMapR/alfa_beta_diversity_example.jpeg" alt="Descripción" width="500"/>
-</
+  <img src="Results/BiodivMapR/alfa_beta_diversity_example.jpeg" width="500">
+</p>
+
+
 
 ---
 
