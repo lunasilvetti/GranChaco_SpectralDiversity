@@ -1,0 +1,15 @@
+
+Mantel statistic based on Pearson's product-moment correlation 
+
+Call:
+mantel(xdis = D_biodiv, ydis = D_espectral, method = "pearson",      permutations = 999) 
+
+Mantel statistic r: 0.1624 
+      Significance: 0.002 
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99% 
+0.0447 0.0596 0.0711 0.0827 
+Permutation: free
+Number of permutations: 999
+
