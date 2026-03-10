@@ -10,7 +10,7 @@ spectral_biodiversity_analysis <- function(
     community_matrix_path ,
     points_path,
     raster_path,
-    output_dir = "outputs"
+    output_dir = "out"
 ){
   
   dir.create(output_dir, showWarnings = FALSE)
@@ -188,12 +188,13 @@ spectral_biodiversity_analysis <- function(
 ##Applications
 spectral_biodiversity_analysis(
   
-  community_matrix_path = "./imput_data/Community_matrix.csv",
-  points_path ="./imput_data/points.csv",
-  raster_path = "./imput_data/Modis_2025_anualmedian.tif",
-  output_dir = "./outputs"
+  community_matrix_path = "./input_data/Community_matrix.csv",
+  points_path ="./input_data/points.csv",
+  raster_path = "./input_data/Modis_2025_anualmedian.tif",
+  output_dir = "./out"
   
 )
+
 
 
 
