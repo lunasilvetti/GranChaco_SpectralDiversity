@@ -20,7 +20,7 @@ library(biodivMapR)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set actual wd
 
 # Define file paths
-ndvi_stack_path <- "./input/stak_ndvi_2025.tif"
+ndvi_stack_path <- "./input/stack_ndvi_2025.tif"
 # Optional vegetation mask
 # mask_path <- "~/vegetation_mask.tif"
 output_dir <- "./out/biodivMapR"
@@ -87,7 +87,7 @@ library(vegan)
 nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
 
 # Save NMDS plot as PNG
-png(filename = "nmds_spectralspecies_plot.png", width = 800, height = 500)
+png(filename = "nmds_plot.png", width = 800, height = 500)
 plot(nmds$points,
      col = 1:nrow(centroids),
      pch = 19,
@@ -97,4 +97,5 @@ text(nmds$points,
      pos = 3,
      cex = 0.7)
 dev.off()
+
 
