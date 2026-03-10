@@ -38,17 +38,19 @@ All outputs are saved in `out/`:
 
 ```
 out/
- ├── 📄 distance_jaccard_matrix.csv
- ├── 📄 spectral_distance_matrix.csv
- ├── 📄 distance_relationship_plot.png
- ├── 📄 mantel_test_results.txt
- ├── 📄 quantile_regression_results.txt
- └── 📄 quantile_regression_plot.png
+ ├── 📄 distance_jaccard_matrix.csv        # Pairwise Jaccard distance matrix calculated from the community matrix
+ ├── 📄 spectral_distance_matrix.csv       # Pairwise spectral distance matrix derived from NDVI values at sampling points
+ ├── 📄 distance_relationship_plot.png     # Scatter plot showing the relationship between species and spectral distances
+ ├── 📄 mantel_test_results.txt            # Results of the Mantel test evaluating the correlation between both distance matrices
+ ├── 📄 quantile_regression_results.txt    # Output summary of the quantile regression analysis
+ └── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
 ```
 
 ### 📝 Results
+
+The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together with the OLS regression line
 <p align="center">
-<img src="examples/Results/alfa_beta_diversity_example.jpeg" alt="Descripción" width="500"/>
+<img src="Results/quantile_regression_plot.png" alt="Descripción" width="500"/>
 </
 
 ---
