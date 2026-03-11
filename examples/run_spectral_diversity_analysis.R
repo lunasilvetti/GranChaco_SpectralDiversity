@@ -1,3 +1,6 @@
+# Install required packages
+#install.packages(c("vegan", "terra", "quantreg","rstudioapi"))
+
 
 library(vegan)
 library(terra)
@@ -194,6 +197,7 @@ spectral_biodiversity_analysis(
   output_dir = "./out"
   
 )
+
 
 
 
