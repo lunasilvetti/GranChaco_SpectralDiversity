@@ -23,7 +23,7 @@ examples/
 
 ---
 
-## 1️⃣ Spectral–Biodiversity Analysis ("run_spectral_biodiversity_analysisR.R")
+## 1️⃣ Spectral–Biodiversity Analysis ("run_spectral_diversity_analysis.R")
 
 ### ▶️ Run the example
 
@@ -61,7 +61,7 @@ The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together
 
 ---
 
-## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("run_biodivMapR.R")
+## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("run_BiodivMapR.R")
 
 ### 📄 Input data
 
