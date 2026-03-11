@@ -16,7 +16,7 @@ Two complementary analyses are implemented:
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Structure 
 
 ```
 project/
