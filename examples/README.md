@@ -83,15 +83,6 @@ ab_info_NDVI <- biodivMapR_full(
 )
 ```
 
-This script will:
-
-1. Check R build tools (R 4.5 compatible)  
-2. Install `biodivMapR` and dependencies (`terra`, `dissUtils`)  
-3. Split NDVI stack into single-band rasters  
-4. Create an “all valid” mask  
-5. Run `biodivMapR_full()` to calculate alpha and beta diversity metrics  
-6. Perform K-means clustering and NMDS ordination on spectral centroids
-
 ### ⚙️ Main parameters
 
 - `window_size = 10` → size of the moving window for diversity calculations  
@@ -127,16 +118,6 @@ The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e
 </p>
 
 
-
----
-
-## 📦 Required packages
-
-```r
-install.packages(c("terra","vegan","quantreg","pkgbuild","remotes"))
-remotes::install_github("cran/dissUtils")
-remotes::install_github("jbferet/biodivMapR")
-```
 
 ---
 
