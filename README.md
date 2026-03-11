@@ -1,4 +1,4 @@
-# 🌿 Spectral Distance and Species Similarity in the Gran Chaco
+# 🌿 Diversity Patterns in the Gran Chaco Based on Satellite-Derived Metrics
 
 ## Overview
 
@@ -14,11 +14,6 @@ Two complementary analyses are implemented:
 - Use the R package **biodivMapR** to compute spectral **α-diversity** (richness, Shannon, Simpson) and **β-diversity** from **NDVI time-series stacks**.
 - Generate spatial maps of biodiversity patterns across the region.
 
-<p align="center">
-<img src="Images/GranChaco_Americano.jpeg" alt="Descripción" width="500"/>
-</p>
-
-
 ---
 
 ## 📁 Repository Structure
@@ -26,18 +21,18 @@ Two complementary analyses are implemented:
 ```
 project/
 │
-├── scripts/                     # Original analysis scripts
-│   ├── spectral_biodiversity_analysis.R
-│   └── biodivMapR_workflow.R
+├── 📁scripts/                     # Original analysis scripts
+│   ├── 📄spectral_biodiversity_analysis.R
+│   └── 📄biodivMapR_workflow.R
 │
-├── figures/                     # Selected results from the full analysis
-│   ├── quantile_regression_plot.png
-│   └── alpha_beta_diversity_map.jpeg
+├── 📁Images/                     # Selected results from the full analysis
+│   ├── 📄quantile_regression_plot.png
+│   └── 📄alpha_beta_diversity_map.jpeg
 │   
 │
-├── example/                     # Minimal reproducible example with small datasets
+├── 📁example/                     # Minimal reproducible example with small datasets
 │
-└── README.md
+└── 📄README.md
 ```
 ---
 
@@ -53,7 +48,7 @@ remotes::install_github("jbferet/biodivMapR")
 
 ## 1️⃣ Spectral–Biodiversity Analysis ("spectral_diversity_analysis.R")
 
-**Community Dissimilarity**
+### 🔹Community Dissimilarity
 
 Species composition differences among sites are calculated using the **Jaccard distance**.
 
@@ -67,16 +62,16 @@ This generates a **pairwise dissimilarity matrix** where values range from:
 - **1 → no shared species**
 
 
----
-**Spectral Distance**
+
+### 🔹Spectral Distance
 
 NDVI values are extracted from the **MODIS raster** at sampling points using the **terra** package.
 
 Local spectral variability is characterized using **3×3 focal statistics** (mean and standard deviation), and a **Euclidean spectral distance matrix** is computed between plots.
 
 
----
-**Spectral–Community Relationship**
+
+### 🔹Spectral–Community Relationship
 
 The relationship between **spectral distance** and **community similarity** is evaluated using:
 
@@ -105,16 +100,15 @@ out/
 
 The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together with the OLS regression line
 <p align="center">
-<img src="Images/quantile_regression_plot.png" alt="Descripción" width="500"/>
+<img src="Images/quantile_regression_plot.png" alt="Descripción" width="600"/>
 </
+
 
 ---
 
 ## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("BiodivMapR.R")
 
-Regional biodiversity patterns are estimated using **biodivMapR**.
-
-### Inputs
+### 📄 Inputs
 
 - **NDVI raster stack** (monthly time series)
 - **Optional vegetation mask**
@@ -163,6 +157,10 @@ The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e
 </p>
 
 
-y  
+## 📚 Reference
 
-These metrics are calculated using **cluster-based spectral species and moving-window analysis**.
+Féret, J.-B., de Boissieu, F., 2019. biodivMapR: an R package for α‐ and β‐diversity mapping using remotely‐sensed images. Methods Ecol. Evol. 00:1-7. https://doi.org/10.1111/2041-210X.13310
+
+Féret, J.-B., Asner, G.P., 2014. Mapping tropical forest canopy diversity using high-fidelity imaging spectroscopy. Ecol. Appl. 24, 1289–1296. https://doi.org/10.1890/13-1824.1
+
+Rocchini D. and Cade B. S., "Quantile Regression Applied to Spectral Distance Decay," in IEEE Geoscience and Remote Sensing Letters, vol. 5, no. 4, pp. 640-643, Oct. 2008, [doi: 10.1109/LGRS.2008.2001767.](https://ieeexplore.ieee.org/document/4656450)
