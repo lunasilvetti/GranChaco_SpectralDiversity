@@ -2,7 +2,7 @@
 
 This folder contains two minimal reproducible examples for R-based spectral-biodiversity analyses:
 
-1. **`spectral_biodiversity_analysis()`** – evaluates the relationship between species compositional similarity (Jaccard) and spectral distance derived from NDVI.  
+1. **`spectral_diversity_analysis()`** – evaluates the relationship between species compositional similarity (Jaccard) and spectral distance derived from NDVI.  
 2. **`biodivMapR_full()`** – calculates alpha and beta diversity metrics from NDVI raster stacks using clustering and window-based approaches.
 
 ---
