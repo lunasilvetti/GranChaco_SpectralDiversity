@@ -1,3 +1,8 @@
+#--------------------------------------------------------
+# Install required packages
+#install.packages(c("vegan", "terra", "quantreg", "ggplot2", "dplyr", "rstudioapi"))
+#--------------------------------------------------------
+
 library(vegan)
 library(terra)
 library(quantreg)
@@ -183,7 +188,7 @@ spectral_diversity_analysis <- function(
 }
 
 
-#Aplications
+##Applications
 spectral_diversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
@@ -200,3 +205,4 @@ spectral_diversity_analysis(
   lat_column = "lat",
   richness_column = "richness"
 )
+
