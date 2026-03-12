@@ -243,7 +243,11 @@ out/
  ├── 📄 distance_relationship_plot.png     # Scatter plot showing the relationship between species and spectral distances
  ├── 📄 mantel_test_results.txt            # Results of the Mantel test evaluating the correlation between both distance matrices
  ├── 📄 quantile_regression_results.txt    # Output summary of the quantile regression analysis
- └── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
+ ├── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
+ ├── 📄 alpha_vs_ndvi.png                  # Scatter plot of alpha diversity vs. NDVI values at sampling points
+ ├── 📄 alpha_vs_mean_3x3.png              # Scatter plot of alpha diversity vs. local 3x3 mean NDVI
+ └── 📄 alpha_vs_sd_3x3.png                # Scatter plot of alpha diversity vs. local 3x3 NDVI standard deviation
+
 ```
 
 ### 📝 Visualization of results
