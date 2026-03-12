@@ -211,11 +211,22 @@ spectral_biodiversity_analysis <- function(
 ### ▶️ Run the example
 
 ```r
-spectral_biodiversity_analysis(
+##Applications
+spectral_diversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
-  points_path = "./input_data/points.csv",
+  points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
-  output_dir = "./out"
+  output_dir = "./out",
+  mantel_test = TRUE,          # TRUE: perform Mantel test
+  quantile_regression = TRUE,  # TRUE: perform OLS + quantile regression
+  plot_alpha = TRUE,           # TRUE: generate alpha plots (NDVI, SD, Mean)
+  
+  # USER SETTINGS
+  # Modify only if your column names are different
+  id_column = "ID",
+  lon_column = "long",
+  lat_column = "lat",
+  richness_column = "richness"
 )
 
 ```
