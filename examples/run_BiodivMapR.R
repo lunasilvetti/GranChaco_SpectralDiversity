@@ -90,16 +90,18 @@ library(vegan)
 nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
 
 # Save NMDS plot as PNG
-png(filename = "nmds_plot.png", width = 800, height = 500)
+png(filename = "./out/biodivMapR/nmds_plot.png", width = 800, height = 500)
 plot(nmds$points,
      col = 1:nrow(centroids),
      pch = 19,
+     cex = 2,
      main = "NMDS - Spectral Species")
 text(nmds$points,
      labels = 1:nrow(centroids),
-     pos = 3,
-     cex = 0.7)
+     pos = 4,
+     cex = 0.8)
 dev.off()
+
 
 
 
