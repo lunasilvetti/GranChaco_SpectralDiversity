@@ -102,7 +102,8 @@ out/
 
 ### 📝 Results
 
-The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together with the OLS regression line
+The first plot shows the relationship between spectral distance and species composition similarity between plots.
+The second plot displays the quantile regressions (50th, 75th, 90th, and 99th percentiles) together with the OLS regression line.
 <p align="center">
 <img src="Images/distance_relationship_plot.png" alt="Descripción" width="440"/>
 <img src="Images/quantile_regression_plot.png" alt="Descripción" width="475"/>
