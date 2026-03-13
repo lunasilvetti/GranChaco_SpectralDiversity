@@ -104,16 +104,17 @@ out/
 
 The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together with the OLS regression line
 <p align="center">
-<img src="Images/distance_relationship_plot.png" alt="Descripción" width="500"/>
-<img src="Images/quantile_regression_plot.png" alt="Descripción" width="500"/>
-</
+<img src="Images/distance_relationship_plot.png" alt="Descripción" width="440"/>
+<img src="Images/quantile_regression_plot.png" alt="Descripción" width="475"/>
+</p>
 
 These three plots show the relationship between species richness and different NDVI-based spectral metrics. Specifically, they present the relationship between species richness and (i) the NDVI values extracted at the sampling points, (ii) the mean NDVI calculated within a 3×3 moving window, and (iii) the standard deviation of NDVI calculated within a 3×3 moving window.
+
 <p align="center">
-<img src="Images/distance_relationship_plot.png" alt="Descripción" width="300"/>
-<img src="Images/quantile_regression_plot.png" alt="Descripción" width="300"/>
-<img src="Images/quantile_regression_plot.png" alt="Descripción" width="300"/>
-</
+    <img src="Images/alpha_vs_ndvi.png" alt="Descripción" width="300"/>
+    <img src="Images/alpha_vs_mean_3x3.png" alt="Descripción" width="300"/>
+    <img src="Images/alpha_vs_sd_3x3.png" alt="Descripción" width="300"/>
+</p>
 
 
 ---
