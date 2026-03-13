@@ -2,7 +2,7 @@
 
 This folder contains two minimal reproducible examples for R-based spectral-biodiversity analyses:
 
-1. **`spectral_diversity_analysis()`** – evaluates the relationship between species compositional similarity (Jaccard) and spectral distance derived from NDVI.  
+1. **`spectral_biodiversity_analysis()`** – evaluates the relationship between species compositional similarity and spectral distance derived from NDVI, and produces plots relating species richness to NDVI metrics.
 2. **`biodivMapR_full()`** – calculates alpha and beta diversity metrics from NDVI raster stacks using clustering and window-based approaches.
 
 ---
@@ -26,7 +26,7 @@ examples/
 
 ---
 
-## 1️⃣ Spectral–Biodiversity Analysis ("run_spectral_diversity_analysis.R")
+## 1️⃣ Spectral–Biodiversity Analysis ("run_spectral_biodiversity_analysis.R")
 
 ### 🛠️ Install Required Libraries
 ```r
@@ -48,7 +48,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working direct
 
 ### ⚙️ Function
 ```r
-spectral_diversity_analysis <- function(
+spectral_biodiversity_analysis <- function(
     community_matrix_path,
     points_path,
     raster_path,
@@ -213,7 +213,7 @@ spectral_diversity_analysis <- function(
 ### ▶️ Run the example
 ```r
 ##Applications
-spectral_diversity_analysis(
+spectral_biodiversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
