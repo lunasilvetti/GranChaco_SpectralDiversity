@@ -94,14 +94,25 @@ out/
  ├── 📄 distance_relationship_plot.png     # Scatter plot showing the relationship between species and spectral distances
  ├── 📄 mantel_test_results.txt            # Results of the Mantel test evaluating the correlation between both distance matrices
  ├── 📄 quantile_regression_results.txt    # Output summary of the quantile regression analysis
- └── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
+ ├── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
+ ├── 📄 alpha_vs_ndvi.png                  # Scatter plot of species richness (number of species per plot). vs. NDVI values at sampling points
+ ├── 📄 alpha_vs_mean_3x3.png              # Scatter plot of species richness (number of species per plot). vs. local 3x3 mean NDVI
+ └── 📄 alpha_vs_sd_3x3.png                # Scatter plot of species richness (number of species per plot). vs. local 3x3 NDVI standard deviation
 ```
 
 ### 📝 Results
 
 The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together with the OLS regression line
 <p align="center">
-<img src="Images/quantile_regression_plot.png" alt="Descripción" width="600"/>
+<img src="Images/distance_relationship_plot.png" alt="Descripción" width="500"/>
+<img src="Images/quantile_regression_plot.png" alt="Descripción" width="500"/>
+</
+
+These three plots show the relationship between species richness and different NDVI-based spectral metrics. Specifically, they present the relationship between species richness and (i) the NDVI values extracted at the sampling points, (ii) the mean NDVI calculated within a 3×3 moving window, and (iii) the standard deviation of NDVI calculated within a 3×3 moving window.
+<p align="center">
+<img src="Images/distance_relationship_plot.png" alt="Descripción" width="300"/>
+<img src="Images/quantile_regression_plot.png" alt="Descripción" width="300"/>
+<img src="Images/quantile_regression_plot.png" alt="Descripción" width="300"/>
 </
 
 
