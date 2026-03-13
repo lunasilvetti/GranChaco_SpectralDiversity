@@ -9,6 +9,7 @@ Two complementary analyses are implemented:
 **`spectral_biodiversity_analysis()`**
 - Compare **Jaccard community dissimilarity** with **spectral distance derived from NDVI**.
 - Evaluate the relationship using **Mantel tests**, **OLS regression**, and **quantile regression**.
+- Generate plots showing the relationship between species richness **(alpha diversity)** and NDVI metrics.
 
 **`biodivMapR_full()`**
 - Use the R package **biodivMapR** to compute spectral **α-diversity** (richness, Shannon, Simpson) and **β-diversity** from **NDVI time-series stacks**.
@@ -23,7 +24,7 @@ project/
 │
 ├── 📁scripts/                     # Original analysis scripts
 │   ├── 📄spectral_biodiversity_analysis.R
-│   └── 📄biodivMapR_workflow.R
+│   └── 📄biodivMapR.R
 │
 ├── 📁Images/                     # Selected results from the full analysis
 │   ├── 📄quantile_regression_plot.png
@@ -46,7 +47,7 @@ remotes::install_github("jbferet/biodivMapR")
 ```
 ---
 
-## 1️⃣ Spectral–Biodiversity Analysis ("spectral_diversity_analysis.R")
+## 1️⃣ Spectral–Biodiversity Analysis ("spectral_biodiversity_analysis.R")
 
 ### 🔹Community Dissimilarity
 
@@ -108,10 +109,7 @@ The plot displays the quantile regressions (50th, 75th, 90th, and 99th) together
 
 ## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("BiodivMapR.R")
 
-### 📄 Inputs
 
-- **NDVI raster stack** (monthly time series)
-- **Optional vegetation mask**
 
 This script will:
 
