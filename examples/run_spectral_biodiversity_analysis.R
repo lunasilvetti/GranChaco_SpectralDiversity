@@ -13,7 +13,7 @@ library(rstudioapi)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working directory
 
-spectral_diversity_analysis <- function(
+spectral_biodiversity_analysis <- function(
     community_matrix_path,
     points_path,
     raster_path,
@@ -190,7 +190,7 @@ spectral_diversity_analysis <- function(
 
 
 #Aplications
-spectral_diversity_analysis(
+spectral_biodiversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
@@ -206,6 +206,5 @@ spectral_diversity_analysis(
   lat_column = "lat",
   richness_column = "richness"
 )
-
 
 
