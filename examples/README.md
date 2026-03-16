@@ -88,8 +88,7 @@ spectral_biodiversity_analysis <- function(
   points_vect <- vect(
     points,
     geom = c(lon_column, lat_column),
-    crs = crs(ndvi_raster)
-  )
+    crs = crs(ndvi_raster))
   
   ndvi_mean3x3 <- focal(ndvi_raster, w = 3, fun = mean, na.rm = TRUE)
   ndvi_sd3x3   <- focal(ndvi_raster, w = 3, fun = sd, na.rm = TRUE)
@@ -99,8 +98,7 @@ spectral_biodiversity_analysis <- function(
     ndvi = extract(ndvi_raster, points_vect)[,-1],
     mean_3x3 = extract(ndvi_mean3x3, points_vect)[,-1],
     sd_3x3 = extract(ndvi_sd3x3, points_vect)[,-1],
-    stringsAsFactors = FALSE
-  )
+    stringsAsFactors = FALSE)
   
   
   ndvi_matrix <- ndvi_points[,"ndvi", drop = FALSE]
@@ -140,8 +138,7 @@ spectral_biodiversity_analysis <- function(
       dist_jaccard_matrix,
       dist_spectral,
       method = "pearson",
-      permutations = 999
-    )
+      permutations = 999)
     
     capture.output(mantel_res, file = file.path(output_dir,"mantel_test_results.txt"))
   }
@@ -153,8 +150,7 @@ spectral_biodiversity_analysis <- function(
     
     df <- data.frame(
       dist_spec = as.vector(dist_spectral[upper.tri(dist_spectral)]),
-      sim_bio = 1 - as.vector(dist_jaccard_matrix[upper.tri(dist_jaccard_matrix)])
-    )
+      sim_bio = 1 - as.vector(dist_jaccard_matrix[upper.tri(dist_jaccard_matrix)]))
     
     df <- na.omit(df)
     
@@ -163,13 +159,11 @@ spectral_biodiversity_analysis <- function(
       tau50 = rq(sim_bio ~ dist_spec, tau = 0.5, data = df),
       tau75 = rq(sim_bio ~ dist_spec, tau = 0.75, data = df),
       tau90 = rq(sim_bio ~ dist_spec, tau = 0.9, data = df),
-      tau99 = rq(sim_bio ~ dist_spec, tau = 0.99, data = df)
-    )
+      tau99 = rq(sim_bio ~ dist_spec, tau = 0.99, data = df))
     
     capture.output(
       lapply(models, summary),
-      file = file.path(output_dir,"quantile_regression_results.txt")
-    )
+      file = file.path(output_dir,"quantile_regression_results.txt"))
     
     png(file.path(output_dir,"quantile_regression_plot.png"), width = 800, height = 500)
     plot(df$dist_spec,
