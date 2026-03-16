@@ -50,7 +50,6 @@ remotes::install_github("jbferet/biodivMapR")
 ## 1️⃣ Spectral–Biodiversity Analysis ("spectral_biodiversity_analysis.R")
 
 ### 🔹Community Dissimilarity
-
 Species composition differences among sites are calculated using the **Jaccard distance**.
 
 ```r
@@ -58,7 +57,6 @@ dist_jaccard <- vegdist(species_matrix, method = "jaccard")
 ```
 
 This generates a **pairwise dissimilarity matrix** where values range from:
-
 - **0 → identical communities**
 - **1 → no shared species**
 
@@ -66,21 +64,25 @@ This generates a **pairwise dissimilarity matrix** where values range from:
 
 ### 🔹Spectral Distance
 
-NDVI values are extracted from the **MODIS raster** at sampling points using the **terra** package.
-
-Local spectral variability is characterized using **3×3 focal statistics** (mean and standard deviation), and a **Euclidean spectral distance matrix** is computed between plots.
-
+- NDVI values are extracted from the **MODIS raster** at sampling points using the **terra** package.
+- Local spectral variability is characterized using **3×3 focal statistics** (mean and standard deviation), and a **Euclidean spectral distance matrix** is computed between plots.
 
 
-### 🔹Spectral–Community Relationship
 
+### 🔹Spectral–Community Relationship (β-diversity)
 The relationship between **spectral distance** and **community similarity** is evaluated using:
 
 - **Scatter plots with OLS regression**
 - **Mantel test** between distance matrices
-- **Quantile regression** (τ = 0.5, 0.75, 0.9, 0.99)
+- **Quantile regression** (τ = 0.5, 0.75, 0.9, 0.99). Quantile regression allows analysis of the **upper-bound decay of community similarity as spectral distance increases**.
 
-Quantile regression allows analysis of the **upper-bound decay of community similarity as spectral distance increases**.
+
+### 🔹Spectral–Species Relationship (α-diversity)
+The script generates plots of species richness vs NDVI metrics, including:
+
+- **Species richness vs NDVI mean**
+- **Species richness vs NDVI SD**
+- **Species richness vs NDVI values**
 
 
 ### 📝 Expected outputs
