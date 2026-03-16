@@ -122,8 +122,6 @@ These three plots show the relationship between species richness and different N
 
 ## 2️⃣ Biodiversity Mapping with `biodivMapR_full()` ("BiodivMapR.R")
 
-
-
 This script will:
 
 1. Check R build tools (R 4.5 compatible)  
