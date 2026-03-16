@@ -3,6 +3,7 @@
 #install.packages(c("vegan", "terra", "quantreg", "ggplot2", "dplyr", "rstudioapi"))
 #--------------------------------------------------------
 
+
 library(vegan)
 library(terra)
 library(quantreg)
@@ -12,7 +13,7 @@ library(rstudioapi)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working directory
 
-spectral_biodiversity_analysis <- function(
+spectral_diversity_analysis <- function(
     community_matrix_path,
     points_path,
     raster_path,
@@ -188,8 +189,8 @@ spectral_biodiversity_analysis <- function(
 }
 
 
-##Applications
-spectral_biodiversity_analysis(
+#Aplications
+spectral_diversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
@@ -205,5 +206,6 @@ spectral_biodiversity_analysis(
   lat_column = "lat",
   richness_column = "richness"
 )
+
 
 
