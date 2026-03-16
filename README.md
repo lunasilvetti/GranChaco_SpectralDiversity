@@ -166,7 +166,7 @@ The NMDS plot displays the spectral species centroids obtained from the K-means 
 
 <p align="center">
   <img src="Images/alpha_beta_diversity_map.jpeg" width="400">
-  <img src="Images/nmds_plot.png" alt="Descripción" width="400"/>
+  <img src="Images/nmds_plot.png" alt="Descripción" width="410"/>
 </p>
 
 
