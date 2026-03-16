@@ -13,7 +13,7 @@ This folder contains two minimal reproducible examples for R-based spectral-biod
 examples/
  ├── 📁 input_data/
  │   ├── 📄 Community_matrix.csv        # Community matrix: sites in rows, species in columns, presence/absence values.
- │   ├── 📄 points.csv                  # Required columns: ID, long, lat, species richness.
+ │   ├── 📄 Sampling_points.csv         # Required columns: ID, long, lat, species richness.
  │   ├── 📄 Modis_2025_anualmedian.tif  # Annual NDVI raster required to compute spectral distances among sampling sites.
  │   └── 📄 stack_ndvi_2025.tif         # Monthly NDVI raster stack (12 bands, one per month) representing the annual NDVI time series.
  │
@@ -215,7 +215,7 @@ spectral_biodiversity_analysis <- function(
 ##Applications
 spectral_biodiversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
-  points_path = "./input_data/sampling_points.csv",
+  points_path = "./input_data/Sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
   output_dir = "./out",
   mantel_test = TRUE,          # TRUE: perform Mantel test
