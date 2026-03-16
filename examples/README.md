@@ -83,7 +83,6 @@ spectral_biodiversity_analysis <- function(
   # 2. SPECTRAL DISTANCE FROM RASTER
   #-------------------------------
   ndvi_raster <- rast(raster_path)[["NDVI"]]
-  
   points <- read.csv(points_path)
  
   points_vect <- vect(
@@ -102,6 +101,7 @@ spectral_biodiversity_analysis <- function(
     sd_3x3 = extract(ndvi_sd3x3, points_vect)[,-1],
     stringsAsFactors = FALSE
   )
+  
   
   ndvi_matrix <- ndvi_points[,"ndvi", drop = FALSE]
   rownames(ndvi_matrix) <- ndvi_points$ID
@@ -127,8 +127,7 @@ spectral_biodiversity_analysis <- function(
        col = rgb(0,0,0,0.3))
   
   abline(lm(as.numeric(S_biodiv) ~ as.numeric(dist_spectral)),
-         col = "red",
-         lwd = 2)
+         col = "red", lwd = 2)
   
   dev.off()
   
@@ -136,12 +135,14 @@ spectral_biodiversity_analysis <- function(
   # 4. MANTEL TEST
   #-------------------------------
   if(mantel_test){
+    
     mantel_res <- mantel(
       dist_jaccard_matrix,
       dist_spectral,
       method = "pearson",
       permutations = 999
     )
+    
     capture.output(mantel_res, file = file.path(output_dir,"mantel_test_results.txt"))
   }
   
@@ -149,6 +150,7 @@ spectral_biodiversity_analysis <- function(
   # 5. OLS + QUANTILE REGRESSION
   #-------------------------------
   if(quantile_regression){
+    
     df <- data.frame(
       dist_spec = as.vector(dist_spectral[upper.tri(dist_spectral)]),
       sim_bio = 1 - as.vector(dist_jaccard_matrix[upper.tri(dist_jaccard_matrix)])
@@ -164,7 +166,9 @@ spectral_biodiversity_analysis <- function(
       tau99 = rq(sim_bio ~ dist_spec, tau = 0.99, data = df)
     )
     
-    capture.output(lapply(models, summary), file = file.path(output_dir,"quantile_regression_results.txt")
+    capture.output(
+      lapply(models, summary),
+      file = file.path(output_dir,"quantile_regression_results.txt")
     )
     
     png(file.path(output_dir,"quantile_regression_plot.png"), width = 800, height = 500)
@@ -178,6 +182,7 @@ spectral_biodiversity_analysis <- function(
     colors <- c("blue","green","orange","red","pink")
     Map(function(m, col){abline(m, col = col, lwd = 2)}, models, colors)
     legend("topright", legend = names(models), col = colors, lwd = 2)
+    
     dev.off()
   }
   
@@ -187,6 +192,7 @@ spectral_biodiversity_analysis <- function(
   if(plot_alpha){
     
     data_plot <- left_join(points, ndvi_points,by = setNames("ID", id_column))
+    
     vars <- c("ndvi","sd_3x3","mean_3x3")
     labels <- c("Species vs NDVI", "Species vs SD_NDVI","Species vs Mean_NDVI")
     colors <- c("forestgreen","darkorange","steelblue")
@@ -196,6 +202,7 @@ spectral_biodiversity_analysis <- function(
       p <- ggplot(data_plot,aes_string(x = vars[i], y = richness_column)) +
         geom_point(size = 3, alpha = 0.7, color = colors[i]) +
         geom_smooth(method = "lm", formula = y ~ x, se = TRUE, color = "darkred") +
+        
         labs(x = vars[i], y = "Species Richness (Alpha Diversity)", title = labels[i]) +
         theme_minimal(base_size = 14)
       
@@ -206,16 +213,15 @@ spectral_biodiversity_analysis <- function(
   
   return(paste("Analysis completed. Outputs saved in:", output_dir))
 }
-
 ```
 
 
 ### ▶️ Run the example
 ```r
-##Applications
+#Aplications
 spectral_biodiversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
-  points_path = "./input_data/Sampling_points.csv",
+  points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
   output_dir = "./out",
   mantel_test = TRUE,          # TRUE: perform Mantel test
