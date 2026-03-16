@@ -263,7 +263,7 @@ The second plot displays the quantile regressions (50th, 75th, 90th, and 99th pe
 </p
 
 
-### α-Diversity → Richness vs NDVI
+### <h3>α-Diversity &rarr; Richness vs NDVI</h3>
 These three plots show the relationship between species richness and different NDVI-based spectral metrics. Specifically, they show the relationship between species richness and (i) the NDVI values extracted at the sampling points, (ii) the mean NDVI calculated within a 3×3 moving window, and (iii) the standard deviation of NDVI calculated within a 3×3 moving window.
 
 <p align="center">
