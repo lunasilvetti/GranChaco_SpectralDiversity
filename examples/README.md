@@ -253,6 +253,7 @@ out/
 
 ### 📝 Visualization of results
 
+### β-Diversity → Spectral Similarity
 The first plot shows the relationship between spectral distance and species composition similarity between plots.  
 The second plot displays the quantile regressions (50th, 75th, 90th, and 99th percentiles) together with the OLS regression line.
 
@@ -261,6 +262,8 @@ The second plot displays the quantile regressions (50th, 75th, 90th, and 99th pe
   <img src="Results/quantile_regression_plot.png" alt="Descripción" width="450"/>
 </p
 
+
+### α-Diversity → Richness vs NDVI
 These three plots show the relationship between species richness and different NDVI-based spectral metrics. Specifically, they show the relationship between species richness and (i) the NDVI values extracted at the sampling points, (ii) the mean NDVI calculated within a 3×3 moving window, and (iii) the standard deviation of NDVI calculated within a 3×3 moving window.
 
 <p align="center">
@@ -418,6 +421,8 @@ out/BiodivMapR
 
 
 ### 📝 Visualization of results
+
+### Alpha and Beta Spectral Diversity
 
 The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e.g., QGIS), since these maps are not standard graphical outputs of the script.  
 The NMDS plot displays the spectral species centroids obtained from the K-means clustering, allowing visualization of the spectral relationships among clusters in a two-dimensional space.
