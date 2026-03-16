@@ -48,41 +48,16 @@ remotes::install_github("jbferet/biodivMapR")
 ---
 
 ## 1️⃣ Spectral–Biodiversity Analysis ("spectral_biodiversity_analysis.R")
+This function computes everything needed for alpha and beta diversity analyses:
 
-### 🔹Community Dissimilarity
-Species composition differences among sites are calculated using the **Jaccard distance**.
+🔹**Community dissimilarity (β-diversity):** Calculates Jaccard distances between sites.  0 → identical communities , 1 → no shared species
 
-```r
-dist_jaccard <- vegdist(species_matrix, method = "jaccard")
-```
+🔹**Spectral distance:** Extracts NDVI from MODIS and computes local variability (3×3 mean & SD) and Euclidean distances between plots.
 
-This generates a **pairwise dissimilarity matrix** where values range from:
-- **0 → identical communities**
-- **1 → no shared species**
+🔹**Spectral–community relationship:** Evaluates how community similarity decreases with spectral distance using scatter plots, Mantel tests, and quantile regression (τ = 0.5, 0.75, 0.9, 0.99). Quantile regression allows analysis of the upper-bound decay of community similarity as spectral distance increases**.
 
+🔹**Spectral–species relationship (α-diversity):** Plots species richness vs NDVI metrics (mean, SD, and raw values).
 
-
-### 🔹Spectral Distance
-
-- NDVI values are extracted from the **MODIS raster** at sampling points using the **terra** package.
-- Local spectral variability is characterized using **3×3 focal statistics** (mean and standard deviation), and a **Euclidean spectral distance matrix** is computed between plots.
-
-
-
-### 🔹Spectral–Community Relationship (β-diversity)
-The relationship between **spectral distance** and **community similarity** is evaluated using:
-
-- **Scatter plots with OLS regression**
-- **Mantel test** between distance matrices
-- **Quantile regression** (τ = 0.5, 0.75, 0.9, 0.99). Quantile regression allows analysis of the **upper-bound decay of community similarity as spectral distance increases**.
-
-
-### 🔹Spectral–Species Relationship (α-diversity)
-The script generates plots of species richness vs NDVI metrics, including:
-
-- **Species richness vs NDVI mean**
-- **Species richness vs NDVI SD**
-- **Species richness vs NDVI values**
 
 
 ### 📝 Expected outputs
@@ -104,6 +79,7 @@ out/
 
 ### 📝 Results
 
+### β-Diversity → Spectral Similarity
 The first plot shows the relationship between spectral distance and species composition similarity between plots.
 The second plot displays the quantile regressions (50th, 75th, 90th, and 99th percentiles) together with the OLS regression line.
 <p align="center">
@@ -111,6 +87,8 @@ The second plot displays the quantile regressions (50th, 75th, 90th, and 99th pe
 <img src="Images/quantile_regression_plot.png" alt="Descripción" width="440"/>
 </p>
 
+
+### α-Diversity → Richness vs NDVI
 These three plots show the relationship between species richness and different NDVI-based spectral metrics. Specifically, they present the relationship between species richness and (i) the NDVI values extracted at the sampling points, (ii) the mean NDVI calculated within a 3×3 moving window, and (iii) the standard deviation of NDVI calculated within a 3×3 moving window.
 
 <p align="center">
@@ -160,6 +138,8 @@ out/BiodivMapR
 
 
 ### 📝 Visualization of results
+
+### Alpha and Beta Spectral Diversity
 
 The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e.g., QGIS), since these maps are not standard graphical outputs of the script.
 The NMDS plot displays the spectral species centroids obtained from the K-means clustering (k=20), allowing visualization of the spectral relationships among clusters in a two-dimensional space.
