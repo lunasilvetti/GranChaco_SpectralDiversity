@@ -54,7 +54,7 @@ This function computes everything needed for alpha and beta diversity analyses:
 
 🔹**Spectral distance:** Extracts NDVI from MODIS and computes local variability (3×3 mean & SD) and Euclidean distances between plots.
 
-🔹**Spectral–community relationship:** Evaluates how community similarity decreases with spectral distance using scatter plots, Mantel tests, and quantile regression (τ = 0.5, 0.75, 0.9, 0.99). Quantile regression allows analysis of the upper-bound decay of community similarity as spectral distance increases**.
+🔹**Spectral–community relationship:** Evaluates how community similarity decreases with spectral distance using scatter plots, Mantel tests, and quantile regression (τ = 0.5, 0.75, 0.9, 0.99). Quantile regression allows analysis of the upper-bound decay of community similarity as spectral distance increases.
 
 🔹**Spectral–species relationship (α-diversity):** Plots species richness vs NDVI metrics (mean, SD, and raw values).
 
