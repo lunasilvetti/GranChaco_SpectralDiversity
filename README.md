@@ -98,7 +98,7 @@ out/
  └── 📄 alpha_vs_sd_3x3.png                # Scatter plot of species richness (number of species per plot). vs. local 3x3 NDVI standard deviation
 ```
 
-### 📝 Results
+### 📝 Visualization of results
 
 ### β-Diversity → Spectral Similarity
 The first plot shows the relationship between spectral distance and species composition similarity between plots.
