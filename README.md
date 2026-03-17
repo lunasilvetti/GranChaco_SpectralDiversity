@@ -59,6 +59,27 @@ This function computes everything needed for alpha and beta diversity analyses:
 🔹**Spectral–species relationship (α-diversity):** Plots species richness vs NDVI metrics (mean, SD, and raw values).
 
 
+### ▶️ Run 
+```r
+#Aplications
+spectral_biodiversity_analysis(
+  community_matrix_path = "./input_data/Community_matrix.csv",
+  points_path = "./input_data/sampling_points.csv",
+  raster_path = "./input_data/Modis_2025_anualmedian.tif",
+  output_dir = "./out",
+  mantel_test = TRUE,          # TRUE: perform Mantel test
+  quantile_regression = TRUE,  # TRUE: perform OLS + quantile regression
+  plot_alpha = TRUE,           # TRUE: generate alpha plots (NDVI, SD, Mean)
+  
+  # USER SETTINGS
+  # Modify only if your column names are different
+  id_column = "ID",
+  lon_column = "long",
+  lat_column = "lat",
+  richness_column = "richness"
+)
+
+```
 
 ### 📝 Expected outputs
 
@@ -118,6 +139,21 @@ This script will:
 - `nb_clusters = 20` → number of clusters for K-means  
 - `maxRows = 1e6` → memory management  
 - `progressbar = TRUE` → shows computation progress
+
+### ▶️ Run 
+
+```r
+ab_info_NDVI <- biodivMapR_full(
+  input_raster_path = ndvi_list,
+  input_mask_path   = mask_path_all,
+  output_dir        = output_dir,
+  window_size       = window_size,
+  Kmeans_info_save  = Kmeans_info_save,
+  Beta_info_save    = Beta_info_save,
+  options           = opts
+)
+```
+
 
 ### 📝 Expected outputs
 
