@@ -467,9 +467,17 @@ dev.off()
 ```r
 load(Kmeans_info_save)
 
-pts <- metaMDS(Kmeans_info$Centroids[[1]], k = 2)$points
-plot(pts, pch = 19, col = 1:nrow(pts))
+pts <- metaMDS(Kmeans_info$Centroids[[1]],
+               distance = "euclidean", k = 2, trace = 0)$points
+
+plot(pts,
+     pch = 19,
+     col = 1:nrow(pts),
+     asp = 1,
+     main = "NMDS - Spectral Species")
+
 text(pts, labels = 1:nrow(pts), pos = 4, cex = 0.7)
+
 ```
 
 <p align="center">
