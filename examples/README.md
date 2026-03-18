@@ -392,7 +392,7 @@ plot(shannon_raster,
      col = terrain.colors(20))  # you can change the palette
 ```
 <p align="center">
-  <img src="Results/BiodivMapR/alfa_diversity_example.png" width="450">
+  <img src="Results/BiodivMapR/alpha_diversity_example.png" width="450">
 </p>
 
 ### Beta Spectral Diversity
