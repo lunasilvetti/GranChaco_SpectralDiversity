@@ -154,6 +154,114 @@ ab_info_NDVI <- biodivMapR_full(
 )
 ```
 
+### 📝 Visualization of results
+```r
+# Load rasters
+shannon_raster <- rast(file.path(output_dir, "shannon_mean.tiff"))
+beta_raster    <- rast(file.path(output_dir, "Beta.tiff"))  # must have 3 bands for RGB
+```
+
+### Alpha Diversity
+```r
+# Plot Alpha - Shannon
+plot(shannon_raster,
+     main = "Alpha Diversity (Shannon_mean)",
+     col = terrain.colors(20))  # you can change the palette
+```
+<p align="center">
+  <img src="Images/alpha_diversity_map.png" width="400">
+</p
+
+### Beta Diversity
+```r
+# Plot Beta diversity
+# Convert SpatRaster to data frame
+df <- as.data.frame(beta_raster, xy = TRUE)
+colnames(df) <- c("x","y","R","G","B")
+
+# Normalize values between 0 and 1
+df$R <- (df$R - min(df$R, na.rm=TRUE)) / (max(df$R, na.rm=TRUE) - min(df$R, na.rm=TRUE))
+df$G <- (df$G - min(df$G, na.rm=TRUE)) / (max(df$G, na.rm=TRUE) - min(df$G, na.rm=TRUE))
+df$B <- (df$B - min(df$B, na.rm=TRUE)) / (max(df$B, na.rm=TRUE) - min(df$B, na.rm=TRUE))
+
+# Create hexadecimal color
+df$color <- rgb(df$R, df$G, df$B)
+
+# Plot with ggplot
+ggplot(df, aes(x = x, y = y, fill = color)) +
+  geom_raster() +
+  scale_fill_identity() +
+  coord_equal() +
+  labs(title = "Beta Diversity") +   
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      size = 16, 
+      hjust = 0.5, 
+      face = "bold",
+      margin = margin(b = 2)    
+    ),
+    axis.title = element_blank(),     # no axis labels
+    axis.text.x = element_text(size = 10, angle = 0, vjust = 0.5),      
+    axis.text.y = element_text(size = 10, angle = 90, hjust = 0.5)     
+  )
+```
+<p align="center">
+  <img src="Images/beta_diversity_map.png" width="400">
+</p
+
+
+
+### ▶️ Run K-means clustering
+```r
+# Load Kmeans_info file
+load(Kmeans_info_save)
+centroids <- Kmeans_info$Centroids[[1]]   # first iteration
+
+
+# Perform NMDS on centroids
+nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
+
+# Save NMDS plot as PNG
+png(filename = "./out/biodivMapR/nmds_plot.png", width = 800, height = 500)
+plot(nmds$points,
+     col = 1:nrow(centroids),
+     pch = 19,
+     cex = 2,
+     main = "NMDS - Spectral Species")
+text(nmds$points,
+     labels = 1:nrow(centroids),
+     pos = 4,
+     cex = 0.8)
+dev.off()
+```
+
+### 📝 Visualization of results
+```
+load(Kmeans_info_save)
+
+pts <- metaMDS(Kmeans_info$Centroids[[1]],
+               distance = "euclidean", k = 2, trace = 0)$points
+
+plot(pts,
+     pch = 19,
+     col = 1:nrow(pts),
+     asp = 1,
+     main = "NMDS - Spectral Species")
+
+text(pts, labels = 1:nrow(pts), pos = 4, cex = 0.7)
+```
+
+<p align="center">
+  <img src="Images/nmds_plot.png" alt="Descripción" width="410"/>
+</p
+
+The NMDS plot displays the spectral species centroids obtained from the K-means clustering (k=15), allowing visualization of the spectral relationships among clusters in a two-dimensional space.
+
+
+
 
 ### 📝 Expected outputs
 
@@ -171,19 +279,6 @@ out/BiodivMapR
  ├── 📄 Simpson_*              # Simpson diversity raster outputs (two rasters: mean and standard deviation)
  └── 📄 richness_*             # Spectral richness raster outputs (two rasters: mean and standard deviation)
  ```
-
-
-### 📝 Visualization of results
-
-### Alpha and Beta Spectral Diversity
-
-The figure shows the Shannon_mean and Beta rasters visualized in GIS software (e.g., QGIS), since these maps are not standard graphical outputs of the script.
-The NMDS plot displays the spectral species centroids obtained from the K-means clustering (k=20), allowing visualization of the spectral relationships among clusters in a two-dimensional space.
-
-<p align="center">
-  <img src="Images/alpha_beta_diversity_map.jpeg" width="400">
-  <img src="Images/nmds_plot.png" alt="Descripción" width="410"/>
-</p>
 
 
 ## 📚 Reference
