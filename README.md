@@ -28,7 +28,9 @@ project/
 │
 ├── 📁Images/                     # Selected results from the full analysis
 │   ├── 📄quantile_regression_plot.png
-│   └── 📄alpha_beta_diversity_map.jpeg
+│   ├── 📄alpha_vs_*.png
+│   ├── 📄alpha_diversity_map.png
+│   └── 📄beta_diversity_map.png
 │   
 │
 ├── 📁example/                     # Minimal reproducible example with small datasets
