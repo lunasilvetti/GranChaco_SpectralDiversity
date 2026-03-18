@@ -77,15 +77,67 @@ ab_info_NDVI <- biodivMapR_full(
 )
 
 
+# -----------------------------
+# Visualization of results
+# -----------------------------
+
+# Load rasters
+shannon_raster <- rast(file.path(output_dir, "shannon_mean.tiff"))
+beta_raster    <- rast(file.path(output_dir, "Beta.tiff"))  # must have 3 bands for RGB
+
+
+# Plot Alpha - Shannon
+plot(shannon_raster,
+     main = "Alpha Diversity (Shannon_mean)",
+     col = terrain.colors(20))  # you can change the palette
+
+
+
+
+# Plot Beta diversity
+# Convert SpatRaster to data frame
+df <- as.data.frame(beta_raster, xy = TRUE)
+colnames(df) <- c("x","y","R","G","B")
+
+# Normalize values between 0 and 1
+df$R <- (df$R - min(df$R, na.rm=TRUE)) / (max(df$R, na.rm=TRUE) - min(df$R, na.rm=TRUE))
+df$G <- (df$G - min(df$G, na.rm=TRUE)) / (max(df$G, na.rm=TRUE) - min(df$G, na.rm=TRUE))
+df$B <- (df$B - min(df$B, na.rm=TRUE)) / (max(df$B, na.rm=TRUE) - min(df$B, na.rm=TRUE))
+
+# Create hexadecimal color
+df$color <- rgb(df$R, df$G, df$B)
+
+# Plot with ggplot
+ggplot(df, aes(x = x, y = y, fill = color)) +
+  geom_raster() +
+  scale_fill_identity() +
+  coord_equal() +
+  labs(title = "Beta Diversity") +   
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      size = 16, 
+      hjust = 0.5, 
+      face = "bold",
+      margin = margin(b = 2)    
+    ),
+    axis.title = element_blank(),     # no axis labels
+    axis.text.x = element_text(size = 10, angle = 0, vjust = 0.5),      
+    axis.text.y = element_text(size = 10, angle = 90, hjust = 0.5)     
+  )
+
+
+
+
 
 ###---------------------------------------
 ##Plot centroids from K-means clustering
 ##----------------------------------------
-
 # Load Kmeans_info file
 load(Kmeans_info_save)
 centroids <- Kmeans_info$Centroids[[1]]   # first iteration
-
 
 # Perform NMDS on centroids
 nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
@@ -103,5 +155,21 @@ text(nmds$points,
      cex = 0.8)
 dev.off()
 
+
+# -----------------------------
+# Visualization of results
+# -----------------------------
+load(Kmeans_info_save)
+
+pts <- metaMDS(Kmeans_info$Centroids[[1]],
+               distance = "euclidean", k = 2, trace = 0)$points
+
+plot(pts,
+     pch = 19,
+     col = 1:nrow(pts),
+     asp = 1,
+     main = "NMDS - Spectral Species")
+
+text(pts, labels = 1:nrow(pts), pos = 4, cex = 0.7)
 
 
