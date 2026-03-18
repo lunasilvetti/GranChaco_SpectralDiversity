@@ -163,7 +163,7 @@ shannon_raster <- rast(file.path(output_dir, "shannon_mean.tiff"))
 beta_raster    <- rast(file.path(output_dir, "Beta.tiff"))  # must have 3 bands for RGB
 ```
 
-### Alpha Diversity
+### Alpha-Diversity
 ```r
 # Plot Alpha - Shannon
 plot(shannon_raster,
@@ -174,7 +174,7 @@ plot(shannon_raster,
   <img src="Images/alpha_diversity_map.png" width="400">
 </p
 
-### Beta Diversity
+### <h3>Beta-Diversity</h3>
 ```r
 # Plot Beta diversity
 # Convert SpatRaster to data frame
