@@ -58,7 +58,7 @@ opts <- list(
   nb_samples_alpha = NULL,                 # Number of pixels sampled to compute alpha diversity (across the whole image)
   nb_samples_beta  = NULL,                 # Number of pixels sampled to compute beta diversity (across the whole image)
   fd_metrics       = NULL,                 # functional diversity (NULL = not used)
-  nb_clusters      = 20,                   # number of clusters
+  nb_clusters      = 15,                   # number of clusters
   nb_iter          = 3,                    # number of iterations
   pcelim           = 0.02,                 # percentile elimination
   maxRows          = 1e6,                  # Maximum number of pixels used to train K-means clustering (memory management)
