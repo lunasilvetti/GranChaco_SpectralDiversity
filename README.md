@@ -138,7 +138,7 @@ This script will:
 
 - `window_size = 10` → size of the moving window for diversity calculations  
 - `alpha_metrics = c("richness","shannon","simpson")`  
-- `nb_clusters = 20` → number of clusters for K-means  
+- `nb_clusters = 15` → number of clusters for K-means  
 - `maxRows = 1e6` → memory management  
 - `progressbar = TRUE` → shows computation progress
 
