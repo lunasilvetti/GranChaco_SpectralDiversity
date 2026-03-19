@@ -13,6 +13,7 @@
 #install.packages("remotes")
 #remotes::install_github("cran/dissUtils")
 #remotes::install_github("jbferet/biodivMapR")
+#install.packages(c("vegan", "terra", "ggplot2", "rstudioapi"))
 ##----------------------------------------------------------
 
 # Load libraries
