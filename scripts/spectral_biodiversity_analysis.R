@@ -1,3 +1,8 @@
+#--------------------------------------------------------
+# Install required packages
+#install.packages(c("vegan", "terra", "quantreg", "ggplot2", "dplyr", "rstudioapi"))
+#--------------------------------------------------------
+
 library(vegan)
 library(terra)
 library(quantreg)
