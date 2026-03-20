@@ -6,6 +6,11 @@ This folder contains two minimal reproducible examples for R-based spectral-biod
 2. **`biodivMapR_full()`** – calculates alpha and beta diversity metrics from NDVI raster stacks using clustering and window-based approaches.
 
 ---
+```markdown
+> ⚠️ Important: To run these examples correctly, you must **clone the full repository**,  
+> as the scripts depend on the folder structure and input data provided.
+```
+---
 
 ## 📁 Contents
 
