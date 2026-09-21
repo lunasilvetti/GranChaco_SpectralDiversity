@@ -79,10 +79,8 @@ ab_info_NDVI <- biodivMapR_full(
 )
 
 
-# -----------------------------
-# Visualization of results
-# -----------------------------
 
+# Visualization of results
 # Load rasters
 shannon_raster <- rast(file.path(output_dir, "shannon_mean.tiff"))
 beta_raster    <- rast(file.path(output_dir, "Beta.tiff"))  # must have 3 bands for RGB
