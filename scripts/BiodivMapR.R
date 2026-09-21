@@ -93,7 +93,6 @@ plot(shannon_raster,
 
 
 
-
 # Plot Beta diversity
 # Convert SpatRaster to data frame
 df <- as.data.frame(beta_raster, xy = TRUE)
@@ -131,47 +130,6 @@ ggplot(df, aes(x = x, y = y, fill = color)) +
 
 
 
-
-
-##Plot centroids from K-means clustering
-# Load Kmeans_info file
-load(Kmeans_info_save)
-centroids <- Kmeans_info$Centroids[[1]]   # first iteration
-
-# Perform NMDS on centroids
-nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
-
-# Save NMDS plot as PNG
-png(filename = "./out/biodivMapR/nmds_plot.png", width = 800, height = 500)
-plot(nmds$points,
-     col = 1:nrow(centroids),
-     pch = 19,
-     cex = 2,
-     main = "NMDS - Spectral Species")
-text(nmds$points,
-     labels = 1:nrow(centroids),
-     pos = 4,
-     cex = 0.8)
-dev.off()
-
-
-# Visualization of results
-load(Kmeans_info_save)
-
-pts <- metaMDS(Kmeans_info$Centroids[[1]],
-               distance = "euclidean", k = 2, trace = 0)$points
-
-plot(pts,
-     pch = 19,
-     col = 1:nrow(pts),
-     asp = 1,
-     main = "NMDS - Spectral Species")
-
-text(pts, labels = 1:nrow(pts), pos = 4, cex = 0.7)
-
-
-
-```r
 # ============================================================
 # Determination of the optimal number of clusters
 # using the within-cluster sum of squares (WSS)
@@ -213,15 +171,32 @@ for(i in seq_along(K_values)){
 }
 
 
-# Save Plot the elbow curve
-png(".out/biodivMapR/elbow_curve_WSS.png",
-  width = 2000, height = 1500, res = 300)
-
+# Plot the elbow curve
 plot(K_values, wss, type = "b", pch = 19,
   xlab = "Number of clusters",
   ylab = "Within-cluster sum of squares")
 
-dev.off()
+
+##----------------------------------------------------------
+##Plot centroids from K-means clustering
+##----------------------------------------------------------
+# Load Kmeans_info file
+load(Kmeans_info_save)
+centroids <- Kmeans_info$Centroids[[1]]   # first iteration
+
+# Perform NMDS on centroids
+nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
+
+# Plot NMDS 
+plot(nmds$points,
+     col = 1:nrow(centroids),
+     pch = 19,
+     cex = 2,
+     main = "NMDS - Spectral Species")
+text(nmds$points, labels = 1:nrow(centroids),
+     pos = 4, cex = 0.8)
+
+
 ```
 
 
