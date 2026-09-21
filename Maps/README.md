@@ -4,9 +4,9 @@ This folder contains spatial products generated using the biodivMapR spectral-sp
 
 ## The current set of products includes:
 
--Spectral α-diversity maps — spatial patterns of spectral-species richness derived from the selected moving-window configuration.
+-Spectral α-diversity map — spatial patterns of spectral-species richness derived from the selected moving-window configuration.
 
--Spectral β-diversity maps — spatial patterns of spectral community differentiation based on spectral-species composition.
+-Spectral β-diversity map — spatial patterns of spectral community differentiation based on spectral-species composition.
 
 -Raster outputs — spatial products provided in standard geospatial formats (e.g., GeoTIFF).
 
