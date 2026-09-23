@@ -23,7 +23,7 @@ Two complementary analyses are implemented:
 project/
 │
 ├── 📁scripts/                     # Original analysis scripts
-│   ├── 📄spectral_biodiversity_analysis.R
+│   ├── 📄spectral_diversity_analysis.R
 │   └── 📄biodivMapR.R
 │
 ├── 📁Images/                     # Selected results from the full analysis
@@ -49,7 +49,7 @@ remotes::install_github("jbferet/biodivMapR")
 ```
 ---
 
-## 1️⃣ Spectral–Biodiversity Analysis ("spectral_biodiversity_analysis.R")
+## 1️⃣ Spectral–Biodiversity Analysis ("spectral_diversity_analysis.R")
 This function computes everything needed for alpha and beta diversity analyses:
 
 🔹**Community dissimilarity (β-diversity):** Calculates Jaccard distances between sites.  0 → identical communities , 1 → no shared species
@@ -64,7 +64,7 @@ This function computes everything needed for alpha and beta diversity analyses:
 ### ▶️ Run 
 ```r
 #Aplications
-spectral_biodiversity_analysis(
+spectral_diversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
   raster_path = "./input_data/Modis_2025_anualmedian.tif",
