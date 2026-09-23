@@ -26,11 +26,14 @@ project/
 │   ├── 📄spectral_diversity_analysis.R
 │   └── 📄biodivMapR.R
 │
-├── 📁Images/                     # Selected results from the full analysis
+├── 📁Images/                      # Selected results from the full analysis
+│   ├── 📄distance_relationship_plot.png
 │   ├── 📄quantile_regression_plot.png
 │   ├── 📄alpha_vs_*.png
-│   ├── 📄alpha_diversity_map.png
-│   └── 📄beta_diversity_map.png
+│   ├── 📄nmds_plo.png
+│   ├── 📄number_clusters.png
+│   ├── 📄spectral_alpha_diversity_map.png
+│   └── 📄spectral_beta_diversity_map.png
 │   
 │
 ├── 📁example/                     # Minimal reproducible example with small datasets
