@@ -184,7 +184,7 @@ plot(shannon_raster,
      col = terrain.colors(20))  # you can change the palette
 ```
 <p align="center">
-  <img src="Images/alpha_diversity_map.png" width="400">
+  <img src="Images/spectral_alpha_diversity_map.png" width="400">
 </p
 
 ### <h3>Beta-Diversity</h3>
@@ -224,7 +224,7 @@ ggplot(df, aes(x = x, y = y, fill = color)) +
   )
 ```
 <p align="center">
-  <img src="Images/beta_diversity_map.png" width="400">
+  <img src="Images/spectral_beta_diversity_map.png" width="400">
 </p
 
 
