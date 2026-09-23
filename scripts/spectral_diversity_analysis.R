@@ -379,7 +379,7 @@ spectral_diversity_analysis <- function(
       theme_paper()
     
     
-    ggsave(file.path(output_dir,"quantile_regression_plot_ggplot.png"),
+    ggsave(file.path(output_dir,"quantile_regression_plot.png"),
       plot = p_quant, width = 7,height = 4,dpi = 300)
   }
   
