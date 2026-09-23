@@ -6,7 +6,7 @@ This repository analyzes the relationship between **spectral variability derived
 
 Two complementary analyses are implemented:
 
-**`spectral_biodiversity_analysis()`**
+**`spectral_diversity_analysis()`**
 - Compare **Jaccard community dissimilarity** with **spectral distance derived from NDVI**.
 - Evaluate the relationship using **Mantel tests**, **OLS regression**, and **quantile regression**.
 - Generate plots showing the relationship between species richness **(alpha diversity)** and NDVI metrics.
