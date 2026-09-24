@@ -252,7 +252,7 @@ plot(K_values, wss, type = "b", pch = 19,
 ```
 
 <p align="center">
-  <img src="Images/number_cluster.png" alt="Descripción" width="410"/>
+  <img src="Images/number_clusters.png" alt="Descripción" width="410"/>
 </p
 
 ---
