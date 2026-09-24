@@ -170,11 +170,15 @@ for(i in seq_along(K_values)){
   wss[i] <- km$tot.withinss
 }
 
+# Save plot
+png(filename = "./out/number_clusters.png", width = 2000, height = 1600, res = 300)
 
 # Plot the elbow curve
 plot(K_values, wss, type = "b", pch = 19,
   xlab = "Number of clusters",
   ylab = "Within-cluster sum of squares")
+
+dev.off()
 
 
 ##----------------------------------------------------------
@@ -187,6 +191,9 @@ centroids <- Kmeans_info$Centroids[[1]]   # first iteration
 # Perform NMDS on centroids
 nmds <- metaMDS(centroids, distance = "euclidean", k = 2)
 
+# Save plot
+png(filename = "./out/nmds_plot.png", width = 2000, height = 1600, res = 300)
+
 # Plot NMDS 
 plot(nmds$points,
      col = 1:nrow(centroids),
@@ -196,6 +203,7 @@ plot(nmds$points,
 text(nmds$points, labels = 1:nrow(centroids),
      pos = 4, cex = 0.8)
 
+dev.off()
 
 ```
 
