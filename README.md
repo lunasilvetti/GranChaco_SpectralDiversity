@@ -67,17 +67,10 @@ This function computes everything needed for alpha and beta diversity analyses:
 ### ▶️ Run 
 ```r
 #Aplications
-raster_paths <- c(
-  "2017" = "./input_data/MODIS_2017_ANUAL_MEDIANA.tif",
-  "2018" = "./input_data/MODIS_2018_ANUAL_MEDIANA.tif",
-  "2019" = "./input_data/MODIS_2019_ANUAL_MEDIANA.tif",
-  "2020" = "./input_data/MODIS_2020_ANUAL_MEDIANA.tif"
-  )
-
 spectral_diversity_analysis(
   community_matrix_path = "./input_data/Community_matrix.csv",
   points_path = "./input_data/sampling_points.csv",
-  raster_path = raster_path,
+  raster_path = raster_paths,  # paths to the input raster files, one for each sampling year
   output_dir = "./out",
   mantel_test = TRUE,          # TRUE: perform Mantel test
   quantile_regression = TRUE,  # TRUE: perform OLS + quantile regression
