@@ -457,8 +457,8 @@ raster_paths <- c(
 
 
 spectral_diversity_analysis(
-  community_matrix_path = "./input_data/Matriz_comunidad_filtrada_500_vl.csv",
-  points_path ="./input_data/Sampling_points_2017-2020_filtrado_500m_vl.csv",
+  community_matrix_path = "./input_data/Matriz_comunidad.csv",
+  points_path ="./input_data/Sampling_points.csv",
   raster_paths =raster_paths,
   output_dir =  "./out",
   mantel_test = TRUE,
