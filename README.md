@@ -297,7 +297,7 @@ The NMDS plot displays the spectral species centroids obtained from the K-means 
 
 ### 📝 Expected outputs
 
-All outputs are saved in `outputs/`:
+All outputs are saved in `out/`:
 
 ```
 out/BiodivMapR
