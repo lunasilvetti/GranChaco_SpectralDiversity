@@ -485,15 +485,18 @@ All outputs are saved in `out/`:
 
 ```
 out/
- ├── 📄 distance_jaccard_matrix.csv        # Pairwise Jaccard distance matrix calculated from the community matrix
- ├── 📄 spectral_distance_matrix.csv       # Pairwise spectral distance matrix derived from NDVI values at sampling points
- ├── 📄 distance_relationship_plot.png     # Scatter plot showing the relationship between species and spectral distances
- ├── 📄 mantel_test_results.txt            # Results of the Mantel test evaluating the correlation between both distance matrices
- ├── 📄 quantile_regression_results.txt    # Output summary of the quantile regression analysis
- ├── 📄 quantile_regression_plot.png       # Plot of the quantile regression showing the upper-bound relationship between distances
- ├── 📄 alpha_vs_ndvi.png                  # Scatter plot of species richness (number of species per plot). vs. NDVI values at sampling points
- ├── 📄 alpha_vs_mean_3x3.png              # Scatter plot of species richness (number of species per plot). vs. local 3x3 mean NDVI
- └── 📄 alpha_vs_sd_3x3.png                # Scatter plot of species richness (number of species per plot). vs. local 3x3 NDVI standard deviation
+ ├── 📄 distance_jaccard_matrix.csv              # Pairwise Jaccard distance matrix calculated from the community matrix
+ ├── 📄 NDVI_extracted_by_plot.csv               # NDVI values extracted at sampling plots
+ ├── 📄 spectral_distance_matrix.csv             # Pairwise spectral distance matrix derived from NDVI values at sampling points
+ ├── 📄 distance_relationship_plot.png           # Scatter plot showing the relationship between species and spectral distances
+ ├── 📄 geographic_distance_matrix_km.csv        # Pairwise geographic distance matrix in km
+ ├── 📄 mantel_and_partial_mantel_results.txt    # Mantel and partial Mantel test results
+ ├── 📄 quantile_regression_results.txt          # Output summary of the quantile regression analysis
+ ├── 📄 quantile_regression_plot.png             # Plot of the quantile regression showing the upper-bound relationship between distances
+ ├── 📄 alpha_diversity_regression_results.txt   # Regression results for species richness against spectral alpha diversity metrics
+ ├── 📄 alpha_vs_ndvi.png                        # Scatter plot of species richness (number of species per plot). vs. NDVI values at sampling points
+ ├── 📄 alpha_vs_mean_3x3.png                    # Scatter plot of species richness (number of species per plot). vs. local 3x3 mean NDVI
+ └── 📄 alpha_vs_sd_3x3.png                      # Scatter plot of species richness (number of species per plot). vs. local 3x3 NDVI standard deviation
 
 ```
 
