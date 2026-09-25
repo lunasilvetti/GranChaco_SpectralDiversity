@@ -1,0 +1,65 @@
+$OLS
+
+Call:
+lm(formula = sim_bio ~ dist_spec, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.28926 -0.10433 -0.00807  0.09209  0.62010 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.289283   0.001739  166.34   <2e-16 ***
+dist_spec   -0.364001   0.028473  -12.78   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1424 on 18526 degrees of freedom
+Multiple R-squared:  0.008745,	Adjusted R-squared:  0.008691 
+F-statistic: 163.4 on 1 and 18526 DF,  p-value: < 2.2e-16
+
+
+$tau50
+
+Call: rq(formula = sim_bio ~ dist_spec, tau = 0.5, data = df)
+
+tau: [1] 0.5
+
+Coefficients:
+            Value     Std. Error t value   Pr(>|t|) 
+(Intercept)   0.28185   0.00227  124.30694   0.00000
+dist_spec    -0.37597   0.03552  -10.58550   0.00000
+
+$tau75
+
+Call: rq(formula = sim_bio ~ dist_spec, tau = 0.75, data = df)
+
+tau: [1] 0.75
+
+Coefficients:
+            Value     Std. Error t value   Pr(>|t|) 
+(Intercept)   0.38604   0.00261  147.65329   0.00000
+dist_spec    -0.45419   0.04086  -11.11696   0.00000
+
+$tau90
+
+Call: rq(formula = sim_bio ~ dist_spec, tau = 0.9, data = df)
+
+tau: [1] 0.9
+
+Coefficients:
+            Value     Std. Error t value   Pr(>|t|) 
+(Intercept)   0.46743   0.00399  117.21931   0.00000
+dist_spec    -0.24117   0.04220   -5.71438   0.00000
+
+$tau99
+
+Call: rq(formula = sim_bio ~ dist_spec, tau = 0.99, data = df)
+
+tau: [1] 0.99
+
+Coefficients:
+            Value    Std. Error t value  Pr(>|t|)
+(Intercept)  0.66718  0.00817   81.64951  0.00000
+dist_spec   -0.46332  0.10016   -4.62556  0.00000
+

@@ -1,0 +1,73 @@
+MANTEL AND PARTIAL MANTEL RESULTS
+=================================================
+
+1. TAXONOMIC DISSIMILARITY vs SPECTRAL DISTANCE
+
+
+Mantel statistic based on Pearson's product-moment correlation 
+
+Call:
+mantel(xdis = as.dist(dist_jaccard_matrix), ydis = as.dist(dist_spectral),      method = "pearson", permutations = 9999) 
+
+Mantel statistic r: 0.09351 
+      Significance: 0.0029 
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99% 
+0.0424 0.0552 0.0657 0.0790 
+Permutation: free
+Number of permutations: 9999
+
+2. TAXONOMIC DISSIMILARITY vs GEOGRAPHIC DISTANCE
+
+
+Mantel statistic based on Pearson's product-moment correlation 
+
+Call:
+mantel(xdis = as.dist(dist_jaccard_matrix), ydis = as.dist(dist_geo_matrix),      method = "pearson", permutations = 9999) 
+
+Mantel statistic r: 0.2328 
+      Significance: 1e-04 
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99% 
+0.0329 0.0428 0.0503 0.0614 
+Permutation: free
+Number of permutations: 9999
+
+3. SPECTRAL DISTANCE vs GEOGRAPHIC DISTANCE
+
+
+Mantel statistic based on Pearson's product-moment correlation 
+
+Call:
+mantel(xdis = as.dist(dist_spectral), ydis = as.dist(dist_geo_matrix),      method = "pearson", permutations = 9999) 
+
+Mantel statistic r: 0.2828 
+      Significance: 1e-04 
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99% 
+0.0312 0.0398 0.0478 0.0569 
+Permutation: free
+Number of permutations: 9999
+
+4. PARTIAL MANTEL
+Taxonomic dissimilarity vs spectral distance
+CONTROLLING FOR geographic distance
+
+
+Partial Mantel statistic based on Pearson's product-moment correlation 
+
+Call:
+mantel.partial(xdis = as.dist(dist_jaccard_matrix), ydis = as.dist(dist_spectral),      zdis = as.dist(dist_geo_matrix), method = "pearson", permutations = 9999) 
+
+Mantel statistic r: 0.02968 
+      Significance: 0.1865 
+
+Upper quantiles of permutations (null model):
+   90%    95%  97.5%    99% 
+0.0437 0.0565 0.0689 0.0826 
+Permutation: free
+Number of permutations: 9999
+
