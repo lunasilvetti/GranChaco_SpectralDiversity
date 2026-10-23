@@ -38,6 +38,10 @@ project/
 │
 ├── 📁example/                     # Minimal reproducible example with small datasets
 │
+├── 📁Maps/                        # Contains the maps of spectral alpha and beta diversity across the Gran Chaco
+│   ├── 📄SpectralAlpha_diversity_map_GC.tiff
+│   ├── 📄SpectralBeta_diversity_map_GC.tiff
+│
 └── 📄README.md
 ```
 ---
